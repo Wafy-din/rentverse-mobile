@@ -231,6 +231,9 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Duration',
                           child: CustomTextField(
+                            key: ValueKey(
+                              'duration-$durationLabel-${state.billingPeriodId}',
+                            ),
                             hintText: durationLabel,
                             initialValue: durationLabel,
                             readOnly: true,
@@ -417,6 +420,9 @@ Future<void> _showBillingPeriodPicker(
                       ? const Icon(Icons.check, color: Colors.teal)
                       : null,
                   onTap: () {
+                    Logger().i(
+                      'Billing period selected -> id=${p.id}, label=${p.label}, duration=${p.durationMonths}',
+                    );
                     cubit.setBillingPeriod(p.id);
                     Navigator.of(ctx).pop();
                   },

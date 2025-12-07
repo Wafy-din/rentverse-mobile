@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:rentverse/features/bookings/domain/entity/req/request_booking_entity.dart';
 import 'package:rentverse/features/bookings/domain/usecase/create_booking_usecase.dart';
 import 'package:rentverse/features/rental/domain/usecase/get_rent_references_usecase.dart';
@@ -24,6 +25,11 @@ class BookingCubit extends Cubit<BookingState> {
       final selectedId = hasExistingSelection
           ? state.billingPeriodId
           : (hasPeriods ? firstId : state.billingPeriodId);
+
+      Logger().i(
+        'Billing periods loaded (${periods.length}): ${periods.map((p) => '${p.id}-${p.label}-${p.durationMonths}').join(', ')} | selectedId=$selectedId',
+      );
+
       emit(
         state.copyWith(
           isBillingPeriodsLoading: false,
@@ -32,6 +38,7 @@ class BookingCubit extends Cubit<BookingState> {
         ),
       );
     } catch (e) {
+      Logger().e('Failed to load billing periods', error: e);
       emit(state.copyWith(isBillingPeriodsLoading: false, error: e.toString()));
     }
   }
