@@ -31,8 +31,8 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         manifestPlaceholders = [
-        midtransClientKey: "SB-Mid-client-Jctrg5LVP60MSIiC", // Ganti dengan Client Key dari Dashboard Midtrans
-        uikitTheme: "@style/Theme.AppCompat.Light" // Tema default Midtrans
+        midtransClientKey: "SB-Mid-client-Jctrg5LVP60MSIiC", 
+        uikitTheme: "@style/Theme.AppCompat.Light" 
     ]
     }
 
