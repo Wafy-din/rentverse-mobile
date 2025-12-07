@@ -15,7 +15,7 @@ class TenantPropertyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => GetUserCubit(sl())..load(),
+      create: (_) => GetUserCubit(sl(), sl())..load(),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Color(0xFFF5F5F5),

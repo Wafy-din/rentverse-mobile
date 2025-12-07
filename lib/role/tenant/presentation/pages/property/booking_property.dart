@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/auth/presentation/widget/custom_text_field.dart';
 import 'package:rentverse/features/property/domain/entity/list_property_entity.dart';
@@ -22,7 +23,7 @@ class BookingPropertyPage extends StatelessWidget {
         BlocProvider(
           create: (_) => BookingCubit(sl(), sl())..loadBillingPeriods(),
         ),
-        BlocProvider(create: (_) => GetUserCubit(sl())..load()),
+        BlocProvider(create: (_) => GetUserCubit(sl(), sl())..load()),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -94,6 +95,10 @@ class BookingPropertyPage extends StatelessWidget {
                       ? '-'
                       : ownerAddress;
 
+                  Logger().i(
+                    'Booking autofill -> tenant: {name: $tenantName, email: $tenantEmail, phone: $tenantPhone}; owner: {name: $ownerName, email: $ownerEmail, phone: $ownerPhone, address: $resolvedOwnerAddress}',
+                  );
+
                   return SingleChildScrollView(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -104,6 +109,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Fullname',
                           child: CustomTextField(
+                            key: ValueKey('tenant-name-$tenantName'),
                             hintText: tenantName,
                             initialValue: tenantName,
                             prefixIcon: const Icon(Icons.person_outline),
@@ -114,6 +120,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Email',
                           child: CustomTextField(
+                            key: ValueKey('tenant-email-$tenantEmail'),
                             hintText: tenantEmail,
                             initialValue: tenantEmail,
                             keyboardType: TextInputType.emailAddress,
@@ -134,6 +141,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Phone Number',
                           child: CustomTextField(
+                            key: ValueKey('tenant-phone-$tenantPhone'),
                             hintText: tenantPhone,
                             initialValue: tenantPhone,
                             keyboardType: TextInputType.phone,
@@ -148,6 +156,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Fullname',
                           child: CustomTextField(
+                            key: ValueKey('owner-name-$ownerName'),
                             hintText: ownerName,
                             initialValue: ownerName,
                             prefixIcon: const Icon(Icons.person_outline),
@@ -158,6 +167,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Email',
                           child: CustomTextField(
+                            key: ValueKey('owner-email-$ownerEmail'),
                             hintText: ownerEmail,
                             initialValue: ownerEmail,
                             prefixIcon: const Icon(Icons.email_outlined),
@@ -168,6 +178,9 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Current Address',
                           child: CustomTextField(
+                            key: ValueKey(
+                              'owner-address-$resolvedOwnerAddress',
+                            ),
                             hintText: resolvedOwnerAddress,
                             initialValue: resolvedOwnerAddress,
                             prefixIcon: const Icon(Icons.home_outlined),
@@ -178,6 +191,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Phone Number',
                           child: CustomTextField(
+                            key: ValueKey('owner-phone-$ownerPhone'),
                             hintText: ownerPhone,
                             initialValue: ownerPhone,
                             keyboardType: TextInputType.phone,
@@ -194,6 +208,9 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Property Address',
                           child: CustomTextField(
+                            key: ValueKey(
+                              'property-address-${property.address}',
+                            ),
                             hintText: property.address.isEmpty
                                 ? '-'
                                 : property.address,
@@ -244,6 +261,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Monthly Rent Price',
                           child: CustomTextField(
+                            key: ValueKey('property-price-$priceLabel'),
                             hintText: priceLabel,
                             initialValue: priceLabel,
                             readOnly: true,
@@ -254,6 +272,7 @@ class BookingPropertyPage extends StatelessWidget {
                         _LabeledField(
                           label: 'Property Type',
                           child: CustomTextField(
+                            key: ValueKey('property-type-$propertyTypeLabel'),
                             hintText: propertyTypeLabel,
                             initialValue: propertyTypeLabel,
                             readOnly: true,
