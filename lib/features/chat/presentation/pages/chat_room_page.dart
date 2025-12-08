@@ -50,7 +50,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          ChatRoomCubit(sl(), sl(), sl(), currentUserId: widget.currentUserId)
+          ChatRoomCubit(sl(), sl(), currentUserId: widget.currentUserId)
             ..init(widget.roomId),
       child: Builder(
         builder: (context) {

@@ -3,22 +3,20 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rentverse/features/chat/data/models/chat_message_model.dart';
 import 'package:rentverse/features/chat/data/source/chat_socket_service.dart';
+import 'package:rentverse/features/chat/domain/entity/chat_message_entity.dart';
 import 'package:rentverse/features/chat/domain/usecase/get_messages_usecase.dart';
-import 'package:rentverse/features/chat/domain/usecase/send_message_usecase.dart';
 import 'package:rentverse/features/chat/presentation/cubit/chat_room/chat_room_state.dart';
 
 class ChatRoomCubit extends Cubit<ChatRoomState> {
   ChatRoomCubit(
     this._getMessagesUseCase,
-    this._sendMessageUseCase,
     this._socketService, {
     required this.currentUserId,
   }) : super(const ChatRoomState());
 
   final GetMessagesUseCase _getMessagesUseCase;
   // ignore: unused_field
-  final SendMessageUseCase
-  _sendMessageUseCase; // HTTP send currently unused; messages are sent via socket
+  // HTTP send currently unused; messages are sent via socket
   final ChatSocketService _socketService;
   final String currentUserId;
 
@@ -69,6 +67,11 @@ class ChatRoomCubit extends Cubit<ChatRoomState> {
 
         final updated = [...state.messages, message]
           ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+        // Simple debug trace to confirm NEW_MESSAGE is received and added
+        // ignore: avoid_print
+        print(
+          'NEW_MESSAGE received room=${message.roomId} content=${message.content}',
+        );
         emit(state.copyWith(messages: updated, status: ChatRoomStatus.success));
       } catch (_) {}
     });
@@ -79,6 +82,21 @@ class ChatRoomCubit extends Cubit<ChatRoomState> {
     if (roomId == null || content.trim().isEmpty) return;
 
     emit(state.copyWith(sending: true, error: null));
+
+    // Optimistic UI update so the message appears immediately
+    final optimistic = ChatMessageEntity(
+      id: DateTime.now().microsecondsSinceEpoch.toString(),
+      roomId: roomId,
+      senderId: currentUserId,
+      content: content,
+      isRead: true,
+      createdAt: DateTime.now(),
+      isMe: true,
+    );
+    final updated = [...state.messages, optimistic]
+      ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    emit(state.copyWith(messages: updated, status: ChatRoomStatus.success));
+
     try {
       // Send via WebSocket only (backend expects socket event, not HTTP CRUD)
       _socketService.sendMessage(roomId, content);
