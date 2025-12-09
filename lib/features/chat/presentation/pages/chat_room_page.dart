@@ -60,15 +60,26 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
             listener: (_, __) => _scrollToBottom(),
             child: Scaffold(
               appBar: AppBar(
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                title: Row(
                   children: [
-                    Text(widget.otherUserName, maxLines: 1),
-                    Text(
-                      widget.propertyTitle,
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    _InitialAvatar(name: widget.otherUserName),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.otherUserName, maxLines: 1),
+                          Text(
+                            widget.propertyTitle,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -114,8 +125,8 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                             }
                             return _MessageBubble(
                               message: item.message!,
-                              otherUserAvatar: widget.otherUserAvatar,
                               otherUserName: widget.otherUserName,
+                              selfName: 'You',
                             );
                           },
                         );
@@ -142,34 +153,29 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 class _MessageBubble extends StatelessWidget {
   const _MessageBubble({
     required this.message,
-    this.otherUserAvatar,
     required this.otherUserName,
+    required this.selfName,
   });
 
   final ChatMessageEntity message;
-  final String? otherUserAvatar;
   final String otherUserName;
+  final String selfName;
 
   @override
   Widget build(BuildContext context) {
     final isMe = message.isMe;
     final timeLabel = DateFormat('HH:mm').format(message.createdAt);
 
-    final bubbleColor = isMe
-        ? Colors.white
-        : const Color(0xFFE8F5FF); // soft blue for other
+    const bubbleColor = Color(0xFFE8F5FF);
     final textColor = Colors.black87;
     final radius = BorderRadius.circular(16);
 
-    Widget avatar({required bool show}) {
-      if (!show) return const SizedBox(width: 32);
-      final image = otherUserAvatar;
-      if (image != null && image.isNotEmpty) {
-        return CircleAvatar(radius: 16, backgroundImage: NetworkImage(image));
-      }
-      final initial = otherUserName.isNotEmpty
-          ? otherUserName[0].toUpperCase()
-          : '?';
+    String initialFor(bool me) {
+      final source = me ? selfName : otherUserName;
+      return source.isNotEmpty ? source[0].toUpperCase() : '?';
+    }
+
+    Widget avatar(String initial) {
       return CircleAvatar(
         radius: 16,
         backgroundColor: Colors.grey.shade300,
@@ -185,7 +191,7 @@ class _MessageBubble extends StatelessWidget {
             ? MainAxisAlignment.end
             : MainAxisAlignment.start,
         children: [
-          if (!isMe) avatar(show: true),
+          if (!isMe) avatar(initialFor(false)),
           if (!isMe) const SizedBox(width: 8),
           Flexible(
             child: Container(
@@ -226,14 +232,25 @@ class _MessageBubble extends StatelessWidget {
             ),
           ),
           if (isMe) const SizedBox(width: 8),
-          if (isMe)
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: const Color(0xFF1CD8D2),
-              child: const Icon(Icons.person, size: 16, color: Colors.white),
-            ),
+          if (isMe) avatar(initialFor(true)),
         ],
       ),
+    );
+  }
+}
+
+class _InitialAvatar extends StatelessWidget {
+  const _InitialAvatar({required this.name});
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    final initial = name.isNotEmpty ? name[0].toUpperCase() : '?';
+    return CircleAvatar(
+      radius: 18,
+      backgroundColor: Colors.grey.shade300,
+      child: Text(initial, style: const TextStyle(color: Colors.black87)),
     );
   }
 }
