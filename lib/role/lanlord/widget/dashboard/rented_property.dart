@@ -57,17 +57,25 @@ class _RentedCard extends StatelessWidget {
                 radius: 16,
                 backgroundColor: Colors.grey.shade200,
                 child: ClipOval(
-                  child: Image.network(
-                    item.renterAvatarUrl,
-                    width: 32,
-                    height: 32,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Icon(
-                      Icons.person,
-                      color: Colors.grey.shade500,
-                      size: 20,
-                    ),
-                  ),
+                  child:
+                      (item.renterAvatarUrl == null ||
+                          item.renterAvatarUrl!.isEmpty)
+                      ? Icon(
+                          Icons.person,
+                          color: Colors.grey.shade500,
+                          size: 20,
+                        )
+                      : Image.network(
+                          item.renterAvatarUrl!,
+                          width: 32,
+                          height: 32,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Icon(
+                            Icons.person,
+                            color: Colors.grey.shade500,
+                            size: 20,
+                          ),
+                        ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -100,18 +108,61 @@ class _RentedCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  item.imageUrl,
-                  width: 120,
-                  height: 90,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    width: 120,
-                    height: 90,
-                    color: Colors.grey.shade200,
-                    child: const Icon(Icons.broken_image, color: Colors.grey),
-                  ),
-                ),
+                child: (item.imageUrl == null || item.imageUrl!.isEmpty)
+                    ? Container(
+                        width: 120,
+                        height: 90,
+                        color: Colors.grey.shade100,
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              Icon(
+                                Icons.image_not_supported,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Gambar belum tersedia',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : Image.network(
+                        item.imageUrl!,
+                        width: 120,
+                        height: 90,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          width: 120,
+                          height: 90,
+                          color: Colors.grey.shade100,
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Icon(
+                                  Icons.image_not_supported,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'Gambar belum tersedia',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -211,23 +262,23 @@ class _InfoRow extends StatelessWidget {
 class RentedItem {
   const RentedItem({
     required this.renterName,
-    required this.renterAvatarUrl,
+    this.renterAvatarUrl,
     required this.title,
     required this.city,
     required this.startDate,
     required this.endDate,
     required this.duration,
-    required this.imageUrl,
+    this.imageUrl,
     this.statusColor = const Color(0xFF00C9B3),
   });
 
   final String renterName;
-  final String renterAvatarUrl;
+  final String? renterAvatarUrl;
   final String title;
   final String city;
   final String startDate;
   final String endDate;
   final String duration;
-  final String imageUrl;
+  final String? imageUrl;
   final Color statusColor;
 }

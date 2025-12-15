@@ -52,18 +52,52 @@ class _PropertyCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              item.imageUrl,
-              width: 110,
-              height: 80,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                width: 110,
-                height: 80,
-                color: Colors.grey.shade200,
-                child: const Icon(Icons.broken_image, color: Colors.grey),
-              ),
-            ),
+            child: item.imageUrl == null || item.imageUrl!.isEmpty
+                ? Container(
+                    width: 110,
+                    height: 80,
+                    color: Colors.grey.shade100,
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Icon(Icons.image_not_supported, color: Colors.grey),
+                          SizedBox(height: 4),
+                          Text(
+                            'Gambar belum tersedia',
+                            style: TextStyle(color: Colors.grey, fontSize: 11),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Image.network(
+                    item.imageUrl!,
+                    width: 110,
+                    height: 80,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      width: 110,
+                      height: 80,
+                      color: Colors.grey.shade100,
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(Icons.image_not_supported, color: Colors.grey),
+                            SizedBox(height: 4),
+                            Text(
+                              'Gambar belum tersedia',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -138,14 +172,14 @@ class PropertyProposal {
   const PropertyProposal({
     required this.title,
     required this.city,
-    required this.imageUrl,
+    this.imageUrl,
     required this.status,
     this.statusBackground = const Color(0xFFBDBDBD),
   });
 
   final String title;
   final String city;
-  final String imageUrl;
+  final String? imageUrl;
   final String status;
   final Color statusBackground;
 }

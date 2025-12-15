@@ -146,9 +146,7 @@ class _LandlordDashboardView extends StatelessWidget {
                       (p) => PropertyProposal(
                         title: p.title,
                         city: p.city,
-                        imageUrl:
-                            makeDeviceAccessibleUrl(p.image) ??
-                            'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
+                        imageUrl: makeDeviceAccessibleUrl(p.image),
                         status: 'Waiting',
                         statusBackground: Colors.orange,
                       ),
@@ -179,8 +177,7 @@ class _LandlordDashboardView extends StatelessWidget {
                     .map(
                       (p) => RentedItem(
                         renterName: '—',
-                        renterAvatarUrl:
-                            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80',
+                        renterAvatarUrl: null,
                         title: p.title,
                         city: p.city,
                         startDate: p.createdAt != null
@@ -188,9 +185,7 @@ class _LandlordDashboardView extends StatelessWidget {
                             : '-',
                         endDate: '-',
                         duration: '${p.stats.totalBookings} bookings',
-                        imageUrl:
-                            makeDeviceAccessibleUrl(p.image) ??
-                            'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80',
+                        imageUrl: makeDeviceAccessibleUrl(p.image),
                       ),
                     )
                     .toList(),
