@@ -63,8 +63,8 @@ jobs:
         run: flutter pub get
 
       # Flutter Analyze: Cek kualitas codingan (Best Practice)
-      # - name: Analyze Code
-      #   run: flutter analyze
+      - name: Analyze Code
+        run: flutter analyze
 
       - name: Grant execute permission for gradlew
         run: chmod +x android/gradlew
