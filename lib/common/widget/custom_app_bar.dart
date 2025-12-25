@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 /// Reusable app bar used across tenant screens.
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -85,10 +86,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(
-                  Icons.notifications_none,
+                Icon(LucideIcons.bell,
                   color: Colors.black87,
-                  size: 28,
+                  size: 24,
                 ),
                 Positioned(
                   right: -2,

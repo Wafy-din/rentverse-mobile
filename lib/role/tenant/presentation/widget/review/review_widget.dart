@@ -4,6 +4,7 @@ import 'package:rentverse/core/utils/error_utils.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/review/domain/usecase/submit_review_usecase.dart';
 import 'package:rentverse/features/review/presentation/widget/property_reviews_widget.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 enum ReviewOutcome { submitted, alreadyReviewed, cancelled, error }
 
@@ -20,8 +21,7 @@ Future<ReviewOutcome?> showReviewDialog(
     backgroundColor: Colors.transparent,
     // Kita gunakan Widget terpisah agar Lifecycle (dispose) aman
     builder: (ctx) =>
-        _ReviewBottomSheetContent(bookingId: bookingId, propertyId: propertyId),
-  );
+        _ReviewBottomSheetContent(bookingId: bookingId, propertyId: propertyId));
 }
 
 // --- WIDGET TERPISAH (Refactor) ---
@@ -88,8 +88,7 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
         rating: _ratingNotifier.value,
         comment: _commentController.text.trim().isEmpty
             ? null
-            : _commentController.text.trim(),
-      );
+            : _commentController.text.trim());
 
       final result = await usecase.call(param: params);
 
@@ -100,9 +99,7 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Review submitted successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
+            backgroundColor: Colors.green));
       } else if (result is DataFailed) {
         final dioErr = result.error;
         final statusCode = dioErr?.response?.statusCode;
@@ -114,9 +111,7 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Anda sudah review, tidak bisa 2 kali'),
-              backgroundColor: Colors.orange,
-            ),
-          );
+              backgroundColor: Colors.orange));
         } else {
           final already = msg.toLowerCase().contains('already reviewed');
           if (already) {
@@ -124,24 +119,19 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('You have already reviewed this booking'),
-                backgroundColor: Colors.orange,
-              ),
-            );
+                backgroundColor: Colors.orange));
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Failed: $msg'),
-                backgroundColor: Colors.red,
-              ),
-            );
+                backgroundColor: Colors.red));
           }
         }
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+          context).showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     } finally {
       if (mounted) {
@@ -158,14 +148,12 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       padding: EdgeInsets.only(
         bottom: bottomPadding, // Padding keyboard
         left: 20,
         right: 20,
-        top: 12,
-      ),
+        top: 12),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -177,22 +165,17 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
                 height: 4,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
+                  borderRadius: BorderRadius.circular(2)))),
             const SizedBox(height: 20),
 
             // 2. Title
             const Text(
               'How was your experience?',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             const Text(
               'Your feedback helps us improve',
-              style: TextStyle(color: Colors.grey, fontSize: 14),
-            ),
+              style: TextStyle(color: Colors.grey, fontSize: 14)),
             const SizedBox(height: 24),
 
             // 3. Star Rating Section
@@ -211,17 +194,13 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
                             padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: Icon(
                               starIndex <= value
-                                  ? Icons.star_rounded
-                                  : Icons.star_outline_rounded,
+                                  ? LucideIcons.star
+                                  : LucideIcons.star,
                               color: starIndex <= value
                                   ? Colors.amber.shade400
                                   : Colors.grey.shade300,
-                              size: 42,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
+                              size: 42)));
+                      })),
                     const SizedBox(height: 12),
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
@@ -231,14 +210,8 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.amber.shade700,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+                          color: Colors.amber.shade700)))]);
+              }),
             const SizedBox(height: 24),
 
             // 4. Comment TextField
@@ -252,15 +225,11 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
                 fillColor: Colors.grey.shade50,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
+                  borderSide: BorderSide.none),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.amber),
-                ),
-                contentPadding: const EdgeInsets.all(16),
-              ),
-            ),
+                  borderSide: const BorderSide(color: Colors.amber)),
+                contentPadding: const EdgeInsets.all(16))),
             const SizedBox(height: 24),
 
             // 5. Submit Button
@@ -274,32 +243,20 @@ class _ReviewBottomSheetContentState extends State<_ReviewBottomSheetContent> {
                   foregroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
+                    borderRadius: BorderRadius.circular(12))),
                 child: _isSubmitting
                     ? const SizedBox(
                         height: 20,
                         width: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
+                          color: Colors.white))
                     : const Text(
                         'Submit Review',
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-              ),
-            ),
-            const SizedBox(height: 24),
-          ],
-        ),
-      ),
-    );
+                          fontWeight: FontWeight.bold)))),
+            const SizedBox(height: 24)])));
   }
 }
 
@@ -313,16 +270,11 @@ Future<void> showReviewsBottomSheet(BuildContext context, String propertyId) {
       return SafeArea(
         child: Container(
           constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(ctx).size.height * 0.8,
-          ),
+            maxHeight: MediaQuery.of(ctx).size.height * 0.8),
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
           padding: const EdgeInsets.all(16),
-          child: PropertyReviewsWidget(propertyId: propertyId),
-        ),
-      );
-    },
-  );
+          child: PropertyReviewsWidget(propertyId: propertyId)));
+    });
 }

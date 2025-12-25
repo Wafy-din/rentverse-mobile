@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:midtrans_snap/midtrans_snap.dart';
 import 'package:midtrans_snap/models.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class MidtransPaymentSnapPage extends StatefulWidget {
   const MidtransPaymentSnapPage({
@@ -72,7 +73,7 @@ class _MidtransPaymentSnapPageState extends State<MidtransPaymentSnapPage> {
             padding: const EdgeInsets.all(12),
             child: Row(
               children: [
-                const Icon(Icons.lock, size: 18),
+                Icon(LucideIcons.lock, size: 18),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(

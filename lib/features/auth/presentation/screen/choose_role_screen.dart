@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import '../../../../common/colors/custom_color.dart';
 import '../widget/custom_button.dart';
 import '../cubit/choose_role/cubit.dart';
@@ -18,7 +19,7 @@ class ChooseRoleScreen extends StatelessWidget {
         backgroundColor: appBackgroundColor,
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: Icon(LucideIcons.arrowLeft),
             onPressed: () => Navigator.of(context).maybePop(),
           ),
           // title: const Text('Choose your role'),
@@ -31,7 +32,6 @@ class ChooseRoleScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               const SizedBox(height: 16),
               Text(
@@ -135,8 +135,8 @@ class ChooseRoleScreen extends StatelessWidget {
           onTap: state.selected == null
               ? () {}
               : () => context.read<ChooseRoleCubit>().submit((role) {
-                  Navigator.pop(context, role);
-                }),
+                    Navigator.pop(context, role);
+                  }),
         );
       },
     );

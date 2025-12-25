@@ -14,6 +14,7 @@ import 'package:rentverse/role/tenant/presentation/pages/rent/midtrans_payment_p
 import 'package:rentverse/role/tenant/presentation/pages/rent/detail_active_rent.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/rent/cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/rent/state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 enum BookingSortOrder { statusAsc, statusDesc }
 
@@ -42,14 +43,12 @@ class _TenantRentPageState extends State<TenantRentPage> {
 
   void _openActiveDetail(BuildContext context, BookingListItemEntity item) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => ActiveRentDetailPage(booking: item)),
-    );
+      MaterialPageRoute(builder: (_) => ActiveRentDetailPage(booking: item)));
   }
 
   Future<void> _openReviewDialog(
     BuildContext context,
-    BookingListItemEntity item,
-  ) async {
+    BookingListItemEntity item) async {
     final ratingCtrl = ValueNotifier<int>(5);
     final commentController = TextEditingController();
 
@@ -68,28 +67,19 @@ class _TenantRentPageState extends State<TenantRentPage> {
                   final idx = i + 1;
                   return IconButton(
                     icon: Icon(
-                      idx <= value ? Icons.star : Icons.star_border,
-                      color: Colors.amber,
-                    ),
-                    onPressed: () => ratingCtrl.value = idx,
-                  );
-                }),
-              ),
-            ),
+                      idx <= value ? LucideIcons.star : LucideIcons.star,
+                      color: Colors.amber),
+                    onPressed: () => ratingCtrl.value = idx);
+                }))),
             TextField(
               controller: commentController,
               maxLines: 3,
               decoration: const InputDecoration(
-                hintText: 'Add a comment (optional)',
-              ),
-            ),
-          ],
-        ),
+                hintText: 'Add a comment (optional)'))]),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
-          ),
+            child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () async {
               final rating = ratingCtrl.value;
@@ -102,38 +92,27 @@ class _TenantRentPageState extends State<TenantRentPage> {
                 final params = SubmitReviewParams(
                   bookingId: item.id,
                   rating: rating,
-                  comment: comment.isEmpty ? null : comment,
-                );
+                  comment: comment.isEmpty ? null : comment);
                 final result = await usecase.call(param: params);
                 if (result is DataSuccess<void>) {
                   if (context.mounted)
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Review submitted successfully'),
-                      ),
-                    );
+                        content: Text('Review submitted successfully')));
                 } else if (result is DataFailed) {
                   if (context.mounted)
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          'Failed to submit review: ${resolveApiErrorMessage(result.error)}',
-                        ),
-                      ),
-                    );
+                          'Failed to submit review: ${resolveApiErrorMessage(result.error)}')));
                 }
               } catch (e) {
                 if (context.mounted)
                   ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text('Error: $e')));
+                    context).showSnackBar(SnackBar(content: Text('Error: $e')));
               }
             },
-            child: const Text('Submit'),
-          ),
-        ],
-      ),
-    );
+            child: const Text('Submit'))]));
     ratingCtrl.dispose();
     commentController.dispose();
     return;
@@ -152,10 +131,8 @@ class _TenantRentPageState extends State<TenantRentPage> {
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             elevation: 0,
-            centerTitle: true,
-          ),
-          body: const Center(child: Text('Menunggu terverifikasi')),
-        );
+            centerTitle: true),
+          body: const Center(child: Text('Menunggu terverifikasi')));
       }
     }
     return DefaultTabController(
@@ -171,34 +148,26 @@ class _TenantRentPageState extends State<TenantRentPage> {
             elevation: 0,
             foregroundColor: Colors.black,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigator.of(context).maybePop(),
-            ),
+              icon: Icon(LucideIcons.arrowLeft),
+              onPressed: () => Navigator.of(context).maybePop()),
             title: const Text(
               'My Booking',
               style: TextStyle(
                 color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+                fontWeight: FontWeight.w600)),
             centerTitle: true,
             actions: [
               PopupMenuButton<BookingSortOrder>(
-                icon: const Icon(Icons.sort),
+                icon: Icon(LucideIcons.arrowUpDown),
                 initialValue: _sortOrder,
                 onSelected: (value) => setState(() => _sortOrder = value),
                 itemBuilder: (context) => const [
                   PopupMenuItem(
                     value: BookingSortOrder.statusAsc,
-                    child: Text('Sort status A → Z'),
-                  ),
+                    child: Text('Sort status A → Z')),
                   PopupMenuItem(
                     value: BookingSortOrder.statusDesc,
-                    child: Text('Sort status Z → A'),
-                  ),
-                ],
-              ),
-            ],
+                    child: Text('Sort status Z → A'))])],
             bottom: const TabBar(
               isScrollable: true,
               tabAlignment: TabAlignment.start,
@@ -212,10 +181,7 @@ class _TenantRentPageState extends State<TenantRentPage> {
                 Tab(text: 'Active'),
                 Tab(text: 'Completed'),
                 Tab(text: 'Overdue'),
-                Tab(text: 'Canceled'),
-              ],
-            ),
-          ),
+                Tab(text: 'Canceled')])),
           body: BlocBuilder<RentCubit, RentState>(
             builder: (context, state) {
               if (state.error != null) {
@@ -232,8 +198,7 @@ class _TenantRentPageState extends State<TenantRentPage> {
                 state.paymentPending,
                 state.paymentPaid,
                 state.paymentOverdue,
-                state.paymentCanceled,
-              ]) {
+                state.paymentCanceled]) {
                 for (final b in list) {
                   allMap[b.id] = b;
                 }
@@ -271,63 +236,50 @@ class _TenantRentPageState extends State<TenantRentPage> {
                     items: _sorted(bookingPending),
                     buttonLabel: 'Go to Payment',
                     isPendingTab: true,
-                    onTap: (item) => _handlePayment(context, item),
-                  ),
+                    onTap: (item) => _handlePayment(context, item)),
 
                   // Pending Payment (CONFIRMED)
                   _BookingList(
                     statusLabel: 'Waiting for payment',
                     items: _sorted(bookingPendingPayment),
                     buttonLabel: 'Go to Payment',
-                    onTap: (item) => _handlePayment(context, item),
-                  ),
+                    onTap: (item) => _handlePayment(context, item)),
 
                   // Paid
                   _BookingList(
                     statusLabel: 'Paid',
                     items: _sorted(bookingPaid),
                     buttonLabel: 'View Detail',
-                    onTap: (item) => _openActiveDetail(context, item),
-                  ),
+                    onTap: (item) => _openActiveDetail(context, item)),
 
                   // Active
                   _BookingList(
                     statusLabel: 'Active Booking',
                     items: _sorted(bookingActive),
                     buttonLabel: 'View Detail',
-                    onTap: (item) => _openActiveDetail(context, item),
-                  ),
+                    onTap: (item) => _openActiveDetail(context, item)),
 
                   // Completed
                   _BookingList(
                     statusLabel: 'Completed',
                     items: _sorted(bookingCompleted),
                     buttonLabel: 'Review',
-                    onTap: (item) => _openReviewDialog(context, item),
-                  ),
+                    onTap: (item) => _openReviewDialog(context, item)),
 
                   // Overdue
                   _BookingList(
                     statusLabel: 'Overdue',
                     items: _sorted(bookingOverdue),
                     buttonLabel: 'Go to Payment',
-                    onTap: (item) => _handlePayment(context, item),
-                  ),
+                    onTap: (item) => _handlePayment(context, item)),
 
                   // Canceled
                   _BookingList(
                     statusLabel: 'Canceled',
                     items: _sorted(bookingCanceled),
                     buttonLabel: 'View Detail',
-                    onTap: (item) => _openActiveDetail(context, item),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-    );
+                    onTap: (item) => _openActiveDetail(context, item))]);
+            }))));
   }
 }
 
@@ -362,12 +314,10 @@ class _BookingList extends StatelessWidget {
           leading: leading,
           onTap: () => onTap(item),
           status: item.status,
-          isPendingTab: isPendingTab,
-        );
+          isPendingTab: isPendingTab);
       },
       separatorBuilder: (_, __) => const SizedBox(height: 12),
-      itemCount: items.length,
-    );
+      itemCount: items.length);
   }
 }
 
@@ -403,15 +353,7 @@ class _BookingListItemCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
+            borderRadius: BorderRadius.circular(14)),
           padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -420,21 +362,15 @@ class _BookingListItemCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   leading ??
-                      const Icon(
-                        Icons.check,
+                      Icon(LucideIcons.check,
                         color: Color(0xFF00C853),
-                        size: 18,
-                      ),
+                        size: 18),
                   const SizedBox(width: 6),
                   Text(
                     statusLabel,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
+                      color: Colors.black))]),
               const SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -444,9 +380,7 @@ class _BookingListItemCard extends StatelessWidget {
                     child: SizedBox(
                       width: 100,
                       height: 90,
-                      child: Image.network(imageUrl, fit: BoxFit.cover),
-                    ),
-                  ),
+                      child: Image.network(imageUrl, fit: BoxFit.cover))),
                   const SizedBox(width: 12),
                   Flexible(
                     child: Column(
@@ -456,29 +390,22 @@ class _BookingListItemCard extends StatelessWidget {
                           title,
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
+                            fontSize: 16),
                           maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                          overflow: TextOverflow.ellipsis),
                         const SizedBox(height: 4),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.location_on_outlined, size: 14),
+                            Icon(LucideIcons.mapPin, size: 14),
                             const SizedBox(width: 4),
                             Flexible(
                               child: Text(
                                 city,
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
+                                  color: Colors.grey),
+                                overflow: TextOverflow.ellipsis))]),
                         const SizedBox(height: 10),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -487,22 +414,17 @@ class _BookingListItemCard extends StatelessWidget {
                               gradient: const LinearGradient(
                                 colors: [Color(0xFF1CD8D2), Color(0xFF0097F6)],
                                 begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ),
-                              borderRadius: BorderRadius.circular(24),
-                            ),
+                                end: Alignment.centerRight),
+                              borderRadius: BorderRadius.circular(24)),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 shadowColor: Colors.transparent,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 20,
-                                  vertical: 10,
-                                ),
+                                  vertical: 10),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24),
-                                ),
-                              ),
+                                  borderRadius: BorderRadius.circular(24))),
                               onPressed:
                                   (isPendingTab &&
                                       status.toUpperCase() == 'PENDING_PAYMENT')
@@ -514,28 +436,13 @@ class _BookingListItemCard extends StatelessWidget {
                                             'PENDING_PAYMENT')
                                     ? 'Waiting For Accept'
                                     : buttonLabel,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+                                style: const TextStyle(color: Colors.white)))))]))])]))));
   }
 }
 
 Future<void> _handlePayment(
   BuildContext context,
-  BookingListItemEntity item,
-) async {
+  BookingListItemEntity item) async {
   final cubit = context.read<RentCubit>();
   final payment = await cubit.payInvoice(item.payment.invoiceId);
   if (payment == null) return;
@@ -548,10 +455,7 @@ Future<void> _handlePayment(
         booking: booking,
         redirectUrl: payment.redirectUrl,
         snapToken: payment.token,
-        clientKey: payment.clientKey,
-      ),
-    ),
-  );
+        clientKey: payment.clientKey)));
 }
 
 BookingResponseEntity _mapToBookingResponse(BookingListItemEntity item) {
@@ -569,8 +473,6 @@ BookingResponseEntity _mapToBookingResponse(BookingListItemEntity item) {
       id: item.property.id,
       title: item.property.title,
       address: item.property.city,
-      imageUrl: item.property.image,
-    ),
-    message: null,
-  );
+      imageUrl: item.property.image),
+    message: null);
 }

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/bookings/domain/usecase/get_property_availability_usecase.dart';
 import 'package:logger/logger.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class _AvailabilityItem {
   final DateTime start;
@@ -80,7 +81,7 @@ class _PropertyAvailabilityWidgetState
           child: Row(
             children: const [
               Icon(
-                Icons.calendar_today_rounded,
+                LucideIcons.calendar,
                 size: 18,
                 color: Colors.black87,
               ),
@@ -130,7 +131,7 @@ class _PropertyAvailabilityWidgetState
             ),
             child: Row(
               children: [
-                Icon(Icons.check_circle_outline, color: Colors.green.shade700),
+                Icon(LucideIcons.check, color: Colors.green.shade700),
                 const SizedBox(width: 8),
                 Text(
                   'Properti tersedia sepenuhnya',

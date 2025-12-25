@@ -77,8 +77,7 @@ class LoginFormScreen extends StatelessWidget {
                     color: Colors.grey.shade400,
                     fontSize: 14,
                   ),
-                  prefixIcon: const Icon(
-                    LucideIcons.mail,
+                  prefixIcon: Icon(LucideIcons.mail,
                     color: Color(0xFF225555),
                     size: 20,
                   ),
@@ -131,8 +130,7 @@ class LoginFormScreen extends StatelessWidget {
                             color: Colors.grey.shade400,
                             fontSize: 14,
                           ),
-                          prefixIcon: const Icon(
-                            LucideIcons.lock,
+                          prefixIcon: Icon(LucideIcons.lock,
                             color: Color(0xFF225555),
                             size: 20,
                           ),

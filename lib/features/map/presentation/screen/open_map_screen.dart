@@ -8,6 +8,7 @@ import 'package:rentverse/common/colors/custom_color.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/map/presentation/cubit/reverse_geocode_cubit.dart';
 import 'package:rentverse/features/map/presentation/cubit/reverse_geocode_state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class OpenMapScreen extends StatefulWidget {
   const OpenMapScreen({
@@ -104,8 +105,7 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
                             point: _center,
                             width: 48,
                             height: 48,
-                            child: const Icon(
-                              Icons.location_on,
+                            child: Icon(LucideIcons.mapPin,
                               size: 48,
                               color: Colors.redAccent,
                               shadows: [
@@ -130,14 +130,7 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, -4),
-                  ),
-                ],
+                    const BorderRadius.vertical(top: Radius.circular(20))
               ),
               child: BlocBuilder<ReverseGeocodeCubit, ReverseGeocodeState>(
                 builder: (context, state) {

@@ -25,8 +25,7 @@ class ReceiptBookingPage extends StatelessWidget {
           listener: (context, state) {
             if (state.error != null) {
               ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.error!)));
+                context).showSnackBar(SnackBar(content: Text(state.error!)));
             }
             if (state.payment != null) {
               Navigator.of(context).push(
@@ -35,10 +34,7 @@ class ReceiptBookingPage extends StatelessWidget {
                     booking: state.response,
                     redirectUrl: state.payment!.redirectUrl,
                     snapToken: state.payment!.token,
-                    clientKey: state.payment!.clientKey,
-                  ),
-                ),
-              );
+                    clientKey: state.payment!.clientKey)));
             }
           },
           builder: (context, state) {
@@ -60,19 +56,13 @@ class ReceiptBookingPage extends StatelessWidget {
                           _Row(label: 'Status', value: res.status),
                           _Row.highlight(
                             label: 'Total',
-                            value: '${res.amount} ${res.currency}',
-                          ),
+                            value: '${res.amount} ${res.currency}'),
                           if (res.message != null && res.message!.isNotEmpty)
                             Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: Text(
                                 res.message!,
-                                style: TextStyle(color: muted),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
+                                style: TextStyle(color: muted)))])),
                     const SizedBox(height: 12),
                     _SectionCard(
                       title: 'Schedule',
@@ -82,20 +72,14 @@ class ReceiptBookingPage extends StatelessWidget {
                           _Row(label: 'Check In', value: _fmtDate(res.checkIn)),
                           _Row(
                             label: 'Check Out',
-                            value: _fmtDate(res.checkOut),
-                          ),
+                            value: _fmtDate(res.checkOut)),
                           _Row(
                             label: 'Payment Deadline',
-                            value: _fmtDate(res.paymentDeadline),
-                          ),
+                            value: _fmtDate(res.paymentDeadline)),
                           const SizedBox(height: 8),
                           _Row(
                             label: 'Billing Period',
-                            value: billingPeriodLabel,
-                          ),
-                        ],
-                      ),
-                    ),
+                            value: billingPeriodLabel)])),
                     const SizedBox(height: 12),
                     _SectionCard(
                       title: 'Property & Rent Details',
@@ -104,9 +88,7 @@ class ReceiptBookingPage extends StatelessWidget {
                         startDate: _fmtDate(res.checkIn),
                         billingPeriod: billingPeriodLabel,
                         propertyType: res.property?.title ?? '-',
-                        priceLabel: _formatCurrency(res.amount, res.currency),
-                      ),
-                    ),
+                        priceLabel: _formatCurrency(res.amount, res.currency))),
                     if (state.payment != null) ...[
                       const SizedBox(height: 12),
                       _SectionCard(
@@ -117,33 +99,19 @@ class ReceiptBookingPage extends StatelessWidget {
                             _Row(label: 'Token', value: state.payment!.token),
                             _Row(
                               label: 'Redirect URL',
-                              value: state.payment!.redirectUrl,
-                            ),
+                              value: state.payment!.redirectUrl),
                             _Row(
                               label: 'Client Key',
-                              value: state.payment!.clientKey,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: 80),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+                              value: state.payment!.clientKey)]))],
+                    const SizedBox(height: 80)])));
+          }),
         bottomNavigationBar:
             BlocBuilder<ReceiptBookingCubit, ReceiptBookingState>(
               builder: (context, state) {
                 final res = state.response;
                 final amountLabel = _formatCurrency(res.amount, res.currency);
                 return NavBarReceipt(amountLabel: amountLabel);
-              },
-            ),
-      ),
-    );
+              })));
   }
 }
 
@@ -176,14 +144,9 @@ class _Row extends StatelessWidget {
             flex: 2,
             child: Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
+              style: const TextStyle(fontWeight: FontWeight.bold))),
           const SizedBox(width: 8),
-          Expanded(flex: 3, child: Text(value, style: style)),
-        ],
-      ),
-    );
+          Expanded(flex: 3, child: Text(value, style: style))]));
   }
 }
 
@@ -200,23 +163,15 @@ class _SectionCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-          ),
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
           const SizedBox(height: 10),
-          child,
-        ],
-      ),
-    );
+          child]));
   }
 }
 
@@ -232,7 +187,6 @@ String _formatCurrency(int amount, String currency) {
   final formatter = NumberFormat.currency(
     locale: 'id_ID',
     symbol: currency.isEmpty ? 'Rp ' : '$currency ',
-    decimalDigits: 0,
-  );
+    decimalDigits: 0);
   return formatter.format(amount);
 }

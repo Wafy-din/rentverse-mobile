@@ -5,6 +5,7 @@ import 'package:rentverse/common/colors/custom_color.dart';
 import 'package:rentverse/features/property/domain/entity/list_property_entity.dart';
 import 'package:rentverse/features/property/domain/usecase/update_property_usecase.dart';
 import 'package:rentverse/role/lanlord/widget/add_property/map_handling.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class EditPropertyPage extends StatefulWidget {
   const EditPropertyPage({super.key, required this.property});
@@ -498,12 +499,12 @@ class _NumberStepper extends StatelessWidget {
           children: [
             IconButton(
               onPressed: value > 0 ? () => onChanged(value - 1) : null,
-              icon: const Icon(Icons.remove_circle_outline),
+              icon: Icon(LucideIcons.minus),
             ),
             Text('$value', style: const TextStyle(fontWeight: FontWeight.w700)),
             IconButton(
               onPressed: () => onChanged(value + 1),
-              icon: const Icon(Icons.add_circle_outline),
+              icon: Icon(LucideIcons.plus),
             ),
           ],
         ),
@@ -534,7 +535,7 @@ class _ImagePickerRow extends StatelessWidget {
         const SizedBox(height: 8),
         OutlinedButton.icon(
           onPressed: onPick,
-          icon: const Icon(Icons.upload_file),
+          icon: Icon(LucideIcons.upload),
           label: const Text('Select Images'),
         ),
       ],

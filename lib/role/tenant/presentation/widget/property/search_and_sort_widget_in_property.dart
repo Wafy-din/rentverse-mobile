@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rentverse/common/colors/custom_color.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/search_and_sort_for_property.dart/cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/search_and_sort_for_property.dart/state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class SearchAndSortWidgetForProperty extends StatelessWidget {
   const SearchAndSortWidgetForProperty({
@@ -36,9 +37,7 @@ class SearchAndSortWidgetForProperty extends StatelessWidget {
                           onChanged: (q) {
                             cubit.updateQuery(q);
                             onChanged?.call(q, state.selectedType);
-                          },
-                        ),
-                      ),
+                          })),
                       const SizedBox(width: 8),
                       GestureDetector(
                         onTap: cubit.toggleFilter,
@@ -49,22 +48,9 @@ class SearchAndSortWidgetForProperty extends StatelessWidget {
                             gradient: const LinearGradient(
                               colors: [Color(0xFF00C2FF), Color(0xFF00E0C3)],
                               begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(14),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 6,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: const Icon(Icons.tune, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
+                              end: Alignment.bottomRight),
+                            borderRadius: BorderRadius.circular(14)),
+                          child: Icon(LucideIcons.sliders, color: Colors.white)))]),
                   const SizedBox(height: 12),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -78,13 +64,8 @@ class SearchAndSortWidgetForProperty extends StatelessWidget {
                             onTap: () {
                               cubit.selectType(c);
                               onChanged?.call(state.query, c);
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                        ],
-                      ],
-                    ),
-                  ),
+                            }),
+                          const SizedBox(width: 8)]])),
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 250),
                     child: state.showFilter
@@ -100,16 +81,9 @@ class SearchAndSortWidgetForProperty extends StatelessWidget {
                               onPriceChanged: cubit.setPrice,
                               selectedFeatures: state.selectedFeatures,
                               onToggleFeature: cubit.toggleFeature,
-                              onReset: cubit.resetFilters,
-                            ),
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                ],
-              );
-            },
-          ),
-    );
+                              onReset: cubit.resetFilters))
+                        : const SizedBox.shrink())]);
+            }));
   }
 }
 
@@ -125,29 +99,19 @@ class _SearchField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 3)),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(28)),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
-          const _GradientIcon(Icons.search, size: 22),
+          const _GradientIcon(LucideIcons.search, size: 22),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: controller,
               decoration: const InputDecoration(
                 hintText: 'Search',
-                border: InputBorder.none,
-              ),
-              onChanged: onChanged,
-            ),
-          ),
-        ],
-      ),
-    );
+                border: InputBorder.none),
+              onChanged: onChanged))]));
   }
 }
 
@@ -182,11 +146,7 @@ class _FilterSheet extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(16)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -194,27 +154,20 @@ class _FilterSheet extends StatelessWidget {
           Text(
             'Location',
             style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-          ),
+              context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(12),
-            ),
+              borderRadius: BorderRadius.circular(12)),
             child: Row(
               children: const [
-                _GradientIcon(Icons.location_on, size: 18),
+                _GradientIcon(LucideIcons.mapPin, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Kuala Lumpur, Malaysia',
-                  style: TextStyle(fontSize: 13, color: Colors.black87),
-                ),
-              ],
-            ),
-          ),
+                  style: TextStyle(fontSize: 13, color: Colors.black87))])),
           const SizedBox(height: 14),
           const Text('Bedrooms', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
@@ -225,15 +178,11 @@ class _FilterSheet extends StatelessWidget {
                 _pill(
                   label: bed == 0 ? 'Any' : '$bed',
                   selected: selectedBedroom == bed,
-                  onTap: () => onBedroomSelected(bed),
-                ),
-            ],
-          ),
+                  onTap: () => onBedroomSelected(bed))]),
           const SizedBox(height: 14),
           const Text(
             'Size (sqft)',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+            style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
@@ -241,22 +190,18 @@ class _FilterSheet extends StatelessWidget {
               activeTrackColor: Colors.transparent,
               inactiveTrackColor: Colors.grey.shade300,
               thumbColor: appPrimaryColor,
-              overlayColor: appPrimaryColor.withOpacity(0.12),
-            ),
+              overlayColor: appPrimaryColor.withOpacity(0.12)),
             child: Slider(
               value: sizeValue,
               min: 200,
               max: 2000,
               divisions: 18,
               label: '${sizeValue.toStringAsFixed(0)} sqft',
-              onChanged: onSizeChanged,
-            ),
-          ),
+              onChanged: onSizeChanged)),
           const SizedBox(height: 6),
           const Text(
             'Price Range',
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
+            style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
@@ -264,17 +209,14 @@ class _FilterSheet extends StatelessWidget {
               activeTrackColor: Colors.transparent,
               inactiveTrackColor: Colors.grey.shade300,
               thumbColor: appPrimaryColor,
-              overlayColor: appPrimaryColor.withOpacity(0.12),
-            ),
+              overlayColor: appPrimaryColor.withOpacity(0.12)),
             child: Slider(
               value: priceValue,
               min: 1000000,
               max: 20000000,
               divisions: 19,
               label: 'Rp ${priceValue.toStringAsFixed(0)}',
-              onChanged: onPriceChanged,
-            ),
-          ),
+              onChanged: onPriceChanged)),
           const SizedBox(height: 10),
           const Text('Features', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
@@ -286,10 +228,7 @@ class _FilterSheet extends StatelessWidget {
                 _pill(
                   label: f,
                   selected: selectedFeatures.contains(f),
-                  onTap: () => onToggleFeature(f),
-                ),
-            ],
-          ),
+                  onTap: () => onToggleFeature(f))]),
           const SizedBox(height: 14),
           Row(
             children: [
@@ -298,8 +237,7 @@ class _FilterSheet extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: appPrimaryColor, width: 1.4),
-                  ),
+                    border: Border.all(color: appPrimaryColor, width: 1.4)),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
@@ -307,21 +245,15 @@ class _FilterSheet extends StatelessWidget {
                       foregroundColor: appPrimaryColor,
                       shadowColor: Colors.transparent,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                        borderRadius: BorderRadius.circular(12))),
                     onPressed: onReset,
-                    child: const Text('Reset Filter'),
-                  ),
-                ),
-              ),
+                    child: const Text('Reset Filter')))),
               const SizedBox(width: 10),
               Expanded(
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: customLinearGradient,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                    borderRadius: BorderRadius.circular(12)),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
@@ -329,19 +261,9 @@ class _FilterSheet extends StatelessWidget {
                       shadowColor: Colors.transparent,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                        borderRadius: BorderRadius.circular(12))),
                     onPressed: () {},
-                    child: const Text('Apply Filter'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+                    child: const Text('Apply Filter'))))])]));
   }
 
   Widget _pill({
@@ -359,18 +281,12 @@ class _FilterSheet extends StatelessWidget {
           color: selected ? null : Colors.white,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: selected ? Colors.transparent : Colors.grey.shade300,
-          ),
-        ),
+            color: selected ? Colors.transparent : Colors.grey.shade300)),
         child: Text(
           label,
           style: TextStyle(
             color: selected ? Colors.white : Colors.black87,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
+            fontWeight: FontWeight.w600))));
   }
 }
 
@@ -398,28 +314,15 @@ class _FilterChipItem extends StatelessWidget {
               ? const LinearGradient(
                   colors: [Color(0xFF00C2FF), Color(0xFF00E0C3)],
                   begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
+                  end: Alignment.bottomRight)
               : null,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            if (selected)
-              const BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 3),
-              ),
-          ],
+          borderRadius: BorderRadius.circular(20)
         ),
         child: Text(
           label,
           style: TextStyle(
             color: selected ? Colors.white : appPrimaryColor,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
+            fontWeight: FontWeight.w600))));
   }
 }
 
@@ -434,8 +337,7 @@ class _GradientIcon extends StatelessWidget {
     return ShaderMask(
       shaderCallback: (bounds) =>
           customLinearGradient.createShader(Rect.fromLTWH(0, 0, size, size)),
-      child: Icon(icon, size: size, color: Colors.white),
-    );
+      child: Icon(icon, size: size, color: Colors.white));
   }
 }
 
@@ -461,8 +363,7 @@ class _GradientSliderTrackShape extends RoundedRectSliderTrackShape {
       sliderTheme: sliderTheme,
       isDiscrete: isDiscrete,
       isEnabled: isEnabled,
-      offset: offset,
-    );
+      offset: offset);
 
     final activePaint = Paint()
       ..shader = customLinearGradient.createShader(trackRect);
@@ -474,24 +375,20 @@ class _GradientSliderTrackShape extends RoundedRectSliderTrackShape {
       trackRect.left,
       trackRect.top,
       thumbCenter.dx,
-      trackRect.bottom,
-    );
+      trackRect.bottom);
 
     final rightRect = Rect.fromLTRB(
       thumbCenter.dx,
       trackRect.top,
       trackRect.right,
-      trackRect.bottom,
-    );
+      trackRect.bottom);
 
     context.canvas.drawRRect(
       RRect.fromRectAndRadius(leftRect, Radius.circular(trackRect.height / 2)),
-      activePaint,
-    );
+      activePaint);
 
     context.canvas.drawRRect(
       RRect.fromRectAndRadius(rightRect, Radius.circular(trackRect.height / 2)),
-      inactivePaint,
-    );
+      inactivePaint);
   }
 }

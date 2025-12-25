@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/property_components.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 class PropertyBeingProposed extends StatelessWidget {
   const PropertyBeingProposed({super.key, required this.items});
 
@@ -12,19 +13,13 @@ class PropertyBeingProposed extends StatelessWidget {
       children: [
         const Text(
           'Property Being Proposed',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-        ),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
         const SizedBox(height: 12),
         Column(
           children: [
             for (final item in items) ...[
               _PropertyCard(item: item),
-              if (item != items.last) const SizedBox(height: 12),
-            ],
-          ],
-        ),
-      ],
-    );
+              if (item != items.last) const SizedBox(height: 12)]])]);
   }
 }
 
@@ -38,15 +33,7 @@ class _PropertyCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x11000000),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(14)),
       padding: const EdgeInsets.all(12),
       child: Row(
         children: [
@@ -54,8 +41,7 @@ class _PropertyCard extends StatelessWidget {
             imageUrl: item.imageUrl,
             title: item.title,
             width: 110,
-            height: 80,
-          ),
+            height: 80),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -66,19 +52,15 @@ class _PropertyCard extends StatelessWidget {
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
-                    color: Colors.black,
-                  ),
+                    color: Colors.black),
                   maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                  overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    const Icon(
-                      Icons.location_on,
+                    Icon(LucideIcons.mapPin,
                       size: 16,
-                      color: Color(0xFF9E9E9E),
-                    ),
+                      color: Color(0xFF9E9E9E)),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
@@ -86,14 +68,9 @@ class _PropertyCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 13,
                           color: Color(0xFF9E9E9E),
-                          fontWeight: FontWeight.w500,
-                        ),
+                          fontWeight: FontWeight.w500),
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
+                        overflow: TextOverflow.ellipsis))]),
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -103,25 +80,14 @@ class _PropertyCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: item.statusBackground,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                      borderRadius: BorderRadius.circular(8)),
                     alignment: Alignment.center,
                     child: Text(
                       item.status,
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 13,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                        color: Colors.white))))]))]));
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class PropertyRentDetailsCard extends StatelessWidget {
   const PropertyRentDetailsCard({
@@ -22,23 +23,23 @@ class PropertyRentDetailsCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _item('Location', location, Icons.location_on_outlined, textStyle),
+        _item('Location', location, LucideIcons.mapPin, textStyle),
         const SizedBox(height: 8),
-        _item('Start Date', startDate, Icons.event, textStyle),
+        _item('Start Date', startDate, LucideIcons.calendarDays, textStyle),
         const SizedBox(height: 8),
-        _item('Billing Period', billingPeriod, Icons.timer, textStyle),
+        _item('Billing Period', billingPeriod, LucideIcons.timer, textStyle),
         const SizedBox(height: 8),
         _item(
           'Property Type',
           propertyType,
-          Icons.home_work_outlined,
+          LucideIcons.home,
           textStyle,
         ),
         const SizedBox(height: 8),
         _item(
           'Price',
           priceLabel,
-          Icons.payments_outlined,
+          LucideIcons.creditCard,
           textStyle,
           valueStyle: const TextStyle(fontWeight: FontWeight.w700),
         ),

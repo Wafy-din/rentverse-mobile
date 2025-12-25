@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/city/cubit.dart';
 import '../../cubit/city/state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class CityCarousel extends StatelessWidget {
   const CityCarousel({super.key});
@@ -81,7 +82,7 @@ class _CityCard extends StatelessWidget {
                 Container(color: Colors.grey.shade200),
             errorWidget: (context, url, error) => Container(
               color: Colors.grey.shade300,
-              child: const Icon(Icons.image_not_supported),
+              child: Icon(LucideIcons.image),
             ),
           ),
           Container(
@@ -132,8 +133,7 @@ class _CityCard extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.arrow_forward,
+              child: Icon(LucideIcons.arrowRight,
                 size: 18,
                 color: Colors.black87,
               ),

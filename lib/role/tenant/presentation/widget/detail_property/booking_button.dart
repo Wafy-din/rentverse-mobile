@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:rentverse/common/colors/custom_color.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class BookingButton extends StatelessWidget {
   const BookingButton({
@@ -22,16 +23,7 @@ class BookingButton extends StatelessWidget {
     // Bungkus dengan Container agar punya background putih & shadow
     // Serta padding bawah untuk safe area (secara manual atau via SafeArea)
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 10,
-            offset: const Offset(0, -4), // Shadow ke atas
-          ),
-        ],
-      ),
+      decoration: BoxDecoration(color: Colors.white),
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -61,7 +53,8 @@ class BookingButton extends StatelessWidget {
                     Expanded(
                       child: OutlinedButton.icon(
                         onPressed: onChat,
-                        icon: const Icon(Icons.chat, color: appPrimaryColor),
+                        icon: Icon(LucideIcons.messageSquare,
+                            color: appPrimaryColor),
                         label: const Text(
                           'Chat Owner',
                           style: TextStyle(

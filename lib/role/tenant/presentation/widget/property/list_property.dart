@@ -6,6 +6,7 @@ import 'package:rentverse/features/property/domain/entity/list_property_entity.d
 import 'package:rentverse/role/tenant/presentation/cubit/list_property/cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/list_property/state.dart';
 import 'package:rentverse/role/tenant/presentation/pages/property/detail_property.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class ListPropertyWidget extends StatelessWidget {
   const ListPropertyWidget({super.key, this.limitToThree = false});
@@ -22,10 +23,8 @@ class ListPropertyWidget extends StatelessWidget {
           state.isLoading,
           state.isLoadingMore,
           state.hasMore,
-          limitToThree,
-        );
-      },
-    );
+          limitToThree);
+      });
   }
 }
 
@@ -36,13 +35,11 @@ Widget _buildPropertyList(
   bool isLoading,
   bool isLoadingMore,
   bool hasMore,
-  bool limitToThree,
-) {
+  bool limitToThree) {
   if (isLoading && items.isEmpty) {
     return const SizedBox(
       height: 200,
-      child: Center(child: CircularProgressIndicator()),
-    );
+      child: Center(child: CircularProgressIndicator()));
   }
 
   if (items.isEmpty) {
@@ -51,10 +48,7 @@ Widget _buildPropertyList(
       child: Center(
         child: Text(
           'No properties found',
-          style: TextStyle(color: Colors.grey),
-        ),
-      ),
-    );
+          style: TextStyle(color: Colors.grey))));
   }
 
   final visibleItems = limitToThree ? items.take(3).toList() : items;
@@ -68,19 +62,13 @@ Widget _buildPropertyList(
           children: const [
             Text(
               'Featured Property',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
             Text(
               'View All',
               style: TextStyle(
                 color: Colors.teal,
                 fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ),
+                fontWeight: FontWeight.w600))])),
       ListView.separated(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -90,15 +78,11 @@ Widget _buildPropertyList(
           if (isLoadingMore && index == visibleItems.length) {
             return const Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
-              child: Center(child: CircularProgressIndicator()),
-            );
+              child: Center(child: CircularProgressIndicator()));
           }
           final property = visibleItems[index];
           return _buildPropertyItem(context, property);
-        },
-      ),
-    ],
-  );
+        })]);
 }
 
 /// Item builder function
@@ -107,8 +91,7 @@ Widget _buildPropertyItem(BuildContext context, PropertyEntity property) {
   if (property.images.isNotEmpty) {
     final primary = property.images.firstWhere(
       (img) => img.isPrimary,
-      orElse: () => property.images.first,
-    );
+      orElse: () => property.images.first);
     imageUrl = primary.url.isNotEmpty ? primary.url : null;
   }
   final attrBed = property.attributes.firstWhere(
@@ -118,9 +101,7 @@ Widget _buildPropertyItem(BuildContext context, PropertyEntity property) {
       propertyId: '',
       attributeTypeId: 0,
       value: '',
-      attributeType: null,
-    ),
-  );
+      attributeType: null));
   final beds = attrBed.value.isNotEmpty ? attrBed.value : '-';
 
   return Material(
@@ -128,21 +109,12 @@ Widget _buildPropertyItem(BuildContext context, PropertyEntity property) {
     child: InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => DetailProperty(property: property)),
-      ),
+        MaterialPageRoute(builder: (_) => DetailProperty(property: property))),
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 6,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
+          borderRadius: BorderRadius.circular(12)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -158,12 +130,8 @@ Widget _buildPropertyItem(BuildContext context, PropertyEntity property) {
                         placeholder: (c, _) =>
                             Container(color: Colors.grey.shade200),
                         errorWidget: (c, _, __) => const _ImageUnavailableBox(
-                          message: 'Failed to load image',
-                        ),
-                      )
-                    : const _ImageUnavailableBox(message: 'No image available'),
-              ),
-            ),
+                          message: 'Failed to load image'))
+                    : const _ImageUnavailableBox(message: 'No image available'))),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -175,17 +143,13 @@ Widget _buildPropertyItem(BuildContext context, PropertyEntity property) {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                      fontWeight: FontWeight.w700)),
                   const SizedBox(height: 2),
                   Row(
                     children: [
-                      const Icon(
-                        Icons.location_on,
+                      Icon(LucideIcons.mapPin,
                         size: 14,
-                        color: Colors.grey,
-                      ),
+                        color: Colors.grey),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
@@ -194,49 +158,30 @@ Widget _buildPropertyItem(BuildContext context, PropertyEntity property) {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                            color: Colors.grey)))]),
                   const SizedBox(height: 4),
                   Text(
                     'Rp${property.price}/mon',
                     style: const TextStyle(
                       color: Colors.teal,
                       fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                      fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.bed, size: 14, color: Colors.grey),
+                      Icon(LucideIcons.bed, size: 14, color: Colors.grey),
                       const SizedBox(width: 4),
                       Text('$beds', style: const TextStyle(fontSize: 12)),
                       const SizedBox(width: 10),
-                      const Icon(Icons.bathtub, size: 14, color: Colors.grey),
+                      Icon(LucideIcons.bath, size: 14, color: Colors.grey),
                       const SizedBox(width: 4),
                       const Text('1', style: TextStyle(fontSize: 12)),
                       const SizedBox(width: 10),
-                      const Icon(
-                        Icons.square_foot,
+                      Icon(LucideIcons.square,
                         size: 14,
-                        color: Colors.grey,
-                      ),
+                        color: Colors.grey),
                       const SizedBox(width: 4),
-                      const Text('500 Sqft', style: TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
+                      const Text('500 Sqft', style: TextStyle(fontSize: 12))])]))]))));
 }
 
 class _ImageUnavailableBox extends StatelessWidget {
@@ -255,10 +200,6 @@ class _ImageUnavailableBox extends StatelessWidget {
           style: const TextStyle(
             color: Colors.grey,
             fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
+            fontWeight: FontWeight.w600))));
   }
 }

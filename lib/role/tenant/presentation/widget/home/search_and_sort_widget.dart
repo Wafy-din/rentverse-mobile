@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/property_types/property_types_cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/property_types/property_types_state.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/search_and_sort/cubit.dart';
@@ -93,14 +94,12 @@ class _SearchField extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 3)),
-        ],
+        border: Border.all(color: Colors.grey.shade200),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
-          const Icon(Icons.search, color: Colors.teal, size: 22),
+          Icon(LucideIcons.search, color: Colors.teal, size: 22),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -146,14 +145,6 @@ class _FilterChipItem extends StatelessWidget {
                 )
               : null,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            if (selected)
-              const BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 3),
-              ),
-          ],
         ),
         child: Text(
           label,

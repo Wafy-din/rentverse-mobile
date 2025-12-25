@@ -4,6 +4,7 @@ import 'package:rentverse/common/widget/pull_to_refresh.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/review/domain/usecase/get_property_reviews_usecase.dart';
 import 'package:rentverse/core/resources/data_state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class PropertyReviewsWidget extends StatefulWidget {
   final String propertyId;
@@ -148,7 +149,7 @@ class _PropertyReviewsWidgetState extends State<PropertyReviewsWidget> {
         CircleAvatar(
           radius: 20,
           backgroundImage: avatar != null ? NetworkImage(avatar) : null,
-          child: avatar == null ? const Icon(Icons.person) : null,
+          child: avatar == null ? Icon(LucideIcons.user) : null,
         ),
         const SizedBox(width: 8),
         Expanded(

@@ -7,6 +7,7 @@ import 'package:rentverse/role/tenant/presentation/pages/nav/chat.dart';
 import 'package:rentverse/role/tenant/presentation/pages/nav/home.dart';
 import 'package:rentverse/role/tenant/presentation/pages/property/property.dart';
 import 'package:rentverse/role/tenant/presentation/pages/nav/rent.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,28 +34,28 @@ class MyTestApp extends StatelessWidget {
         ],
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.grey),
-            activeIcon: GradientIcon(icon: Icons.home),
+            icon: Icon(LucideIcons.home, color: Colors.grey),
+            activeIcon: GradientIcon(icon: LucideIcons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.apartment, color: Colors.grey),
-            activeIcon: GradientIcon(icon: Icons.apartment),
+            icon: Icon(LucideIcons.building, color: Colors.grey),
+            activeIcon: GradientIcon(icon: LucideIcons.building),
             label: 'Property',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long, color: Colors.grey),
-            activeIcon: GradientIcon(icon: Icons.receipt_long),
+            icon: Icon(LucideIcons.receipt, color: Colors.grey),
+            activeIcon: GradientIcon(icon: LucideIcons.receipt),
             label: 'Rent',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat, color: Colors.grey),
-            activeIcon: GradientIcon(icon: Icons.chat),
+            icon: Icon(LucideIcons.messageSquare, color: Colors.grey),
+            activeIcon: GradientIcon(icon: LucideIcons.messageSquare),
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.grey),
-            activeIcon: GradientIcon(icon: Icons.person),
+            icon: Icon(LucideIcons.user, color: Colors.grey),
+            activeIcon: GradientIcon(icon: LucideIcons.user),
             label: 'Profile',
           ),
         ],

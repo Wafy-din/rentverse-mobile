@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:rentverse/common/widget/custom_app_bar.dart';
 import 'package:rentverse/role/lanlord/widget/dashboard/property_being_proposed.dart';
 import 'package:rentverse/role/lanlord/widget/dashboard/rented_property.dart';
@@ -108,13 +109,13 @@ class _LandlordDashboardView extends StatelessWidget {
             selectedPeriod: 'Monthly',
             items: [
               StatItem(
-                icon: Icons.pie_chart_outline,
+                icon: LucideIcons.pieChart,
                 title: overview?.occupancy.label ?? 'Occupancy',
                 value: (overview?.occupancy.active ?? 0).toString(),
                 delta: '${overview?.occupancy.pending ?? 0} pending',
               ),
               StatItem(
-                icon: Icons.home_work_outlined,
+                icon: LucideIcons.building,
                 title: overview?.inventory.label ?? 'Listed Properties',
                 value: (overview?.inventory.total ?? 0).toString(),
                 delta: '',
@@ -136,9 +137,8 @@ class _LandlordDashboardView extends StatelessWidget {
                 return Center(child: Text('Failed to load properties'));
               }
 
-              final proposed = propsState.items
-                  .where((p) => p.isVerified == false)
-                  .toList();
+              final proposed =
+                  propsState.items.where((p) => p.isVerified == false).toList();
 
               if (proposed.isEmpty) {
                 return const SizedBox();
@@ -228,13 +228,6 @@ class _DashboardWalletCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: customLinearGradient,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: appPrimaryColor.withOpacity(0.12),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),

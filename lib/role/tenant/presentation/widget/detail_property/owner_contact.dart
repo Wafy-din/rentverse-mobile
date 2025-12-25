@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class OwnerContact extends StatelessWidget {
   const OwnerContact({
@@ -75,12 +76,12 @@ class OwnerContact extends StatelessWidget {
           ),
           Row(
             children: [
-              _ContactIcon(icon: Icons.call, onTap: onCall),
+              _ContactIcon(icon: LucideIcons.phone, onTap: onCall),
               const SizedBox(width: 10),
-              _ContactIcon(icon: Icons.chat, onTap: onChat),
+              _ContactIcon(icon: LucideIcons.messageSquare, onTap: onChat),
               if (onEdit != null) ...[
                 const SizedBox(width: 10),
-                _ContactIcon(icon: Icons.edit, onTap: onEdit),
+                _ContactIcon(icon: LucideIcons.edit, onTap: onEdit),
               ],
             ],
           ),

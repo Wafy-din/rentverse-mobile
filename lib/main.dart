@@ -19,6 +19,7 @@ import 'package:rentverse/role/tenant/presentation/pages/nav/home.dart';
 import 'package:rentverse/role/tenant/presentation/pages/property/property.dart';
 import 'package:rentverse/role/tenant/presentation/pages/nav/rent.dart';
 import 'package:rentverse/common/screen/navigation_container.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -95,28 +96,28 @@ _NavigationConfig _buildNavigationConfig(UserEntity user) {
       ],
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.dashboard, color: Colors.grey),
-          activeIcon: GradientIcon(icon: Icons.dashboard),
+          icon: Icon(LucideIcons.layoutDashboard, color: Colors.grey),
+          activeIcon: GradientIcon(icon: LucideIcons.layoutDashboard),
           label: 'Dashboard',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.apartment, color: Colors.grey),
-          activeIcon: GradientIcon(icon: Icons.apartment),
+          icon: Icon(LucideIcons.building, color: Colors.grey),
+          activeIcon: GradientIcon(icon: LucideIcons.building),
           label: 'Property',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.receipt_long, color: Colors.grey),
-          activeIcon: GradientIcon(icon: Icons.receipt_long),
+          icon: Icon(LucideIcons.receipt, color: Colors.grey),
+          activeIcon: GradientIcon(icon: LucideIcons.receipt),
           label: 'Booking',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.chat, color: Colors.grey),
-          activeIcon: GradientIcon(icon: Icons.chat),
+          icon: Icon(LucideIcons.messageCircle, color: Colors.grey),
+          activeIcon: GradientIcon(icon: LucideIcons.messageCircle),
           label: 'Chat',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person, color: Colors.grey),
-          activeIcon: GradientIcon(icon: Icons.person),
+          icon: Icon(LucideIcons.user, color: Colors.grey),
+          activeIcon: GradientIcon(icon: LucideIcons.user),
           label: 'Profile',
         ),
       ],
@@ -134,28 +135,28 @@ _NavigationConfig _buildNavigationConfig(UserEntity user) {
     ],
     items: const [
       BottomNavigationBarItem(
-        icon: Icon(Icons.home, color: Colors.grey),
-        activeIcon: GradientIcon(icon: Icons.home),
+        icon: Icon(LucideIcons.home, color: Colors.grey),
+        activeIcon: GradientIcon(icon: LucideIcons.home),
         label: 'Home',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.apartment, color: Colors.grey),
-        activeIcon: GradientIcon(icon: Icons.apartment),
+        icon: Icon(LucideIcons.building, color: Colors.grey),
+        activeIcon: GradientIcon(icon: LucideIcons.building),
         label: 'Property',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.receipt_long, color: Colors.grey),
-        activeIcon: GradientIcon(icon: Icons.receipt_long),
+        icon: Icon(LucideIcons.receipt, color: Colors.grey),
+        activeIcon: GradientIcon(icon: LucideIcons.receipt),
         label: 'Rent',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.chat, color: Colors.grey),
-        activeIcon: GradientIcon(icon: Icons.chat),
+        icon: Icon(LucideIcons.messageCircle, color: Colors.grey),
+        activeIcon: GradientIcon(icon: LucideIcons.messageCircle),
         label: 'Chat',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.person, color: Colors.grey),
-        activeIcon: GradientIcon(icon: Icons.person),
+        icon: Icon(LucideIcons.user, color: Colors.grey),
+        activeIcon: GradientIcon(icon: LucideIcons.user),
         label: 'Profile',
       ),
     ],

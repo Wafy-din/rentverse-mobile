@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -88,8 +89,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
-                            Icons.error_outline,
+                          Icon(LucideIcons.alertCircle,
                             color: Colors.white,
                             size: 48,
                           ),
@@ -154,7 +154,7 @@ class _CameraScreenState extends State<CameraScreen> {
               top: 16,
               left: 16,
               child: IconButton(
-                icon: const Icon(Icons.close, color: Colors.white),
+                icon: Icon(LucideIcons.x, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop<File?>(null),
               ),
             ),

@@ -22,6 +22,7 @@ import 'package:rentverse/features/bookings/presentation/widget/property_availab
 import 'package:rentverse/role/tenant/presentation/pages/property/booking_property.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/detail_property/cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/detail_property/state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class DetailProperty extends StatelessWidget {
   const DetailProperty({super.key, required this.property});
@@ -240,7 +241,7 @@ class _LocationMap extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Icon(Icons.place, color: appSecondaryColor),
+            Icon(LucideIcons.mapPin, color: appSecondaryColor),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -277,8 +278,7 @@ class _LocationMap extends StatelessWidget {
                       point: center,
                       width: 40,
                       height: 40,
-                      child: const Icon(
-                        Icons.location_pin,
+                      child: Icon(LucideIcons.mapPin,
                         size: 40,
                         color: appSecondaryColor,
                       ),

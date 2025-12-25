@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rentverse/role/lanlord/presentation/pages/part_add_property.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/listing_tab.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/submission_tab.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class LandLordPropertyView extends StatelessWidget {
   const LandLordPropertyView({super.key});
@@ -15,7 +16,7 @@ class LandLordPropertyView extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.black,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(LucideIcons.arrowLeft),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: const Text(
@@ -24,7 +25,7 @@ class LandLordPropertyView extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(icon: const Icon(Icons.more_horiz), onPressed: () {}),
+          IconButton(icon: Icon(LucideIcons.moreHorizontal), onPressed: () {}),
         ],
         bottom: const TabBar(
           isScrollable: true,
@@ -46,7 +47,7 @@ class LandLordPropertyView extends StatelessWidget {
             MaterialPageRoute(builder: (_) => const PartAddPropertyPage()),
           );
         },
-        child: const Icon(Icons.add, color: Colors.white),
+        child: Icon(LucideIcons.plus, color: Colors.white),
       ),
     );
   }

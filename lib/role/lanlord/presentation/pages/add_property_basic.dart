@@ -7,6 +7,7 @@ import 'package:rentverse/role/lanlord/presentation/cubit/add_property_state.dar
 import 'package:rentverse/role/lanlord/widget/add_property/map_handling.dart';
 import 'package:rentverse/features/map/presentation/screen/open_map_screen.dart';
 import 'package:rentverse/common/colors/custom_color.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class AddPropertyBasicPage extends StatefulWidget {
   const AddPropertyBasicPage({super.key});
@@ -76,7 +77,7 @@ class _AddPropertyBasicPageState extends State<AddPropertyBasicPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(LucideIcons.arrowLeft),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: const Text('Basic Property Information'),
@@ -531,7 +532,7 @@ class _NumberStepper extends StatelessWidget {
         Row(
           children: [
             _StepperButton(
-              icon: Icons.remove,
+              icon: LucideIcons.minus,
               onTap: value > 0 ? () => onChanged(value - 1) : null,
             ),
             Container(
@@ -546,7 +547,7 @@ class _NumberStepper extends StatelessWidget {
               ),
             ),
             _StepperButton(
-              icon: Icons.add,
+              icon: LucideIcons.plus,
               onTap: () => onChanged(value + 1),
             ),
           ],
@@ -643,7 +644,7 @@ class _ImagePickerRow extends StatelessWidget {
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.upload_file, color: Colors.white),
+                  Icon(LucideIcons.upload, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
                     'Select Images',

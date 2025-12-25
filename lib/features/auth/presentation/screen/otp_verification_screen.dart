@@ -6,6 +6,7 @@ import 'package:rentverse/core/utils/error_utils.dart';
 import 'package:rentverse/features/auth/domain/usecase/send_otp_usecase.dart';
 import 'package:rentverse/features/auth/domain/usecase/verify_otp_usecase.dart';
 import 'package:rentverse/core/resources/data_state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String target;
@@ -145,7 +146,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(LucideIcons.arrowLeft, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.white,
@@ -183,8 +184,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 // In a real app with provided assets, we'd use Image.asset
                 Container(
                   padding: const EdgeInsets.all(20),
-                  child: const Icon(
-                    Icons.mail_outline_rounded,
+                  child: Icon(LucideIcons.mail,
                     size: 80,
                     color: Colors.redAccent,
                   ),
@@ -199,8 +199,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const Icon(
-                  Icons.phone_android_rounded,
+                Icon(LucideIcons.phone,
                   size: 80,
                   color: Color(0xFF1E232C), // Dark color from design
                 ),

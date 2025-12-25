@@ -13,6 +13,7 @@ import 'package:rentverse/features/bookings/domain/entity/res/booking_response_e
 import 'package:rentverse/role/tenant/presentation/widget/midtrans/card_property.dart';
 import 'package:rentverse/role/tenant/presentation/widget/receipt_booking/property_rent_details.dart';
 import 'package:rentverse/role/tenant/presentation/pages/rent/midtrans_payment_snap_page.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class MidtransPaymentPage extends StatefulWidget {
   const MidtransPaymentPage({
@@ -42,100 +43,73 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     final priceLabel = _formatCurrency(booking.amount, booking.currency);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Payment'), centerTitle: true),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CardProperty(
-              property: booking.property,
-              billingPeriod: billingPeriodLabel,
-              startDate: booking.checkIn,
-            ),
-            const SizedBox(height: 12),
-            _SectionCard(
-              title: 'Property & Rent Details',
-              child: PropertyRentDetailsCard(
-                location: booking.property?.address ?? '-',
-                startDate: _fmtDate(booking.checkIn),
-                billingPeriod: billingPeriodLabel,
-                propertyType: booking.property?.title ?? '-',
-                priceLabel: priceLabel,
-              ),
-            ),
-            const SizedBox(height: 32),
-          ],
-        ),
-      ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, -2),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Total Price',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                priceLabel,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                  color: Color(0xFF00B0FF),
-                ),
-              ),
+        appBar: AppBar(title: const Text('Payment'), centerTitle: true),
+        body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              CardProperty(
+                  property: booking.property,
+                  billingPeriod: billingPeriodLabel,
+                  startDate: booking.checkIn),
               const SizedBox(height: 12),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF1CD8D2), Color(0xFF0097F6)],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                    ),
-                    onPressed: _isProcessing ? null : _openSnap,
-                    child: const Text(
-                      'Pay Now',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+              _SectionCard(
+                  title: 'Property & Rent Details',
+                  child: PropertyRentDetailsCard(
+                      location: booking.property?.address ?? '-',
+                      startDate: _fmtDate(booking.checkIn),
+                      billingPeriod: billingPeriodLabel,
+                      propertyType: booking.property?.title ?? '-',
+                      priceLabel: priceLabel)),
+              const SizedBox(height: 32)
+            ])),
+        bottomNavigationBar: SafeArea(
+            top: false,
+            child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: const BoxDecoration(color: Colors.white),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Total Price',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 12)),
+                      const SizedBox(height: 4),
+                      Text(priceLabel,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                              color: Color(0xFF00B0FF))),
+                      const SizedBox(height: 12),
+                      DecoratedBox(
+                          decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF1CD8D2),
+                                    Color(0xFF0097F6)
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight),
+                              borderRadius: BorderRadius.circular(24)),
+                          child: SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      shadowColor: Colors.transparent,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 14),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(24))),
+                                  onPressed: _isProcessing ? null : _openSnap,
+                                  child: const Text('Pay Now',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600)))))
+                    ]))));
   }
 
   Future<void> _openSnap() async {
@@ -150,15 +124,11 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
 
     setState(() => _isProcessing = true);
 
-    final res = await Navigator.of(context).push<dynamic>(
-      MaterialPageRoute(
+    final res = await Navigator.of(context).push<dynamic>(MaterialPageRoute(
         builder: (_) => MidtransPaymentSnapPage(
-          token: widget.snapToken,
-          clientKey: clientKey,
-          redirectUrl: widget.redirectUrl,
-        ),
-      ),
-    );
+            token: widget.snapToken,
+            clientKey: clientKey,
+            redirectUrl: widget.redirectUrl)));
 
     if (!mounted) return;
     setState(() => _isProcessing = false);
@@ -169,8 +139,8 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
       final status = res is Map && res['transactionStatus'] != null
           ? res['transactionStatus'] as String
           : (res != null && res.transactionStatus != null
-                ? res.transactionStatus as String
-                : '');
+              ? res.transactionStatus as String
+              : '');
 
       if (status.toLowerCase() == 'settlement' ||
           status.toLowerCase() == 'capture') {
@@ -181,47 +151,38 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
 
         // Recreate tenant navigation and clear stack (acts like reload)
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (_) => NavigationContainer(
-              initialIndex: 0,
-              pages: [
-                TenantHomePage(),
-                TenantPropertyPage(),
-                TenantRentPage(),
-                TenantChatPage(),
-                ProfilePage(),
-              ],
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home, color: Colors.grey),
-                  activeIcon: GradientIcon(icon: Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.apartment, color: Colors.grey),
-                  activeIcon: GradientIcon(icon: Icons.apartment),
-                  label: 'Property',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.receipt_long, color: Colors.grey),
-                  activeIcon: GradientIcon(icon: Icons.receipt_long),
-                  label: 'Rent',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.chat, color: Colors.grey),
-                  activeIcon: GradientIcon(icon: Icons.chat),
-                  label: 'Chat',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person, color: Colors.grey),
-                  activeIcon: GradientIcon(icon: Icons.person),
-                  label: 'Profile',
-                ),
-              ],
-            ),
-          ),
-          (route) => false,
-        );
+            MaterialPageRoute(
+                builder: (_) => NavigationContainer(initialIndex: 0, pages: [
+                      TenantHomePage(),
+                      TenantPropertyPage(),
+                      TenantRentPage(),
+                      TenantChatPage(),
+                      ProfilePage()
+                    ], items: [
+                      BottomNavigationBarItem(
+                          icon: Icon(LucideIcons.home, color: Colors.grey),
+                          activeIcon: GradientIcon(icon: LucideIcons.home),
+                          label: 'Home'),
+                      BottomNavigationBarItem(
+                          icon: Icon(LucideIcons.building, color: Colors.grey),
+                          activeIcon: GradientIcon(icon: LucideIcons.building),
+                          label: 'Property'),
+                      BottomNavigationBarItem(
+                          icon: Icon(LucideIcons.receipt, color: Colors.grey),
+                          activeIcon: GradientIcon(icon: LucideIcons.receipt),
+                          label: 'Rent'),
+                      BottomNavigationBarItem(
+                          icon: Icon(LucideIcons.messageSquare,
+                              color: Colors.grey),
+                          activeIcon:
+                              GradientIcon(icon: LucideIcons.messageSquare),
+                          label: 'Chat'),
+                      BottomNavigationBarItem(
+                          icon: Icon(LucideIcons.user, color: Colors.grey),
+                          activeIcon: GradientIcon(icon: LucideIcons.user),
+                          label: 'Profile')
+                    ])),
+            (route) => false);
       }
     } catch (_) {
       // ignore parsing errors
@@ -229,9 +190,8 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
   }
 
   void _showSnack(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 }
 
@@ -244,27 +204,17 @@ class _SectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-          ),
+        width: double.infinity,
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(12)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(title,
+              style:
+                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
           const SizedBox(height: 10),
-          child,
-        ],
-      ),
-    );
+          child
+        ]));
   }
 }
 
@@ -278,9 +228,8 @@ String _fmtDate(DateTime? date) {
 
 String _formatCurrency(int amount, String currency) {
   final formatter = NumberFormat.currency(
-    locale: 'id_ID',
-    symbol: currency.isEmpty ? 'Rp ' : '$currency ',
-    decimalDigits: 0,
-  );
+      locale: 'id_ID',
+      symbol: currency.isEmpty ? 'Rp ' : '$currency ',
+      decimalDigits: 0);
   return formatter.format(amount);
 }

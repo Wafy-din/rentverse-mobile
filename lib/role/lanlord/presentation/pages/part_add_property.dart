@@ -7,6 +7,7 @@ import 'package:rentverse/role/lanlord/presentation/cubit/add_property_cubit.dar
 import 'package:rentverse/role/lanlord/presentation/cubit/add_property_state.dart';
 import 'package:rentverse/role/lanlord/presentation/pages/add_property_basic.dart';
 import 'package:rentverse/role/lanlord/presentation/pages/pricing_and_amenity_property.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class PartAddPropertyPage extends StatelessWidget {
   const PartAddPropertyPage({super.key});
@@ -43,7 +44,7 @@ class _PartAddPropertyView extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(LucideIcons.arrowLeft),
               onPressed: () => Navigator.of(context).maybePop(),
             ),
             title: const Text('Add Property'),
@@ -128,14 +129,7 @@ class _StepCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: completed ? appPrimaryColor : const Color(0xFFE0E0E0),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          )
         ),
         child: Row(
           children: [
@@ -149,7 +143,7 @@ class _StepCard extends StatelessWidget {
                 ),
               ),
             ),
-            if (completed) Icon(Icons.check_circle, color: appPrimaryColor),
+            if (completed) Icon(LucideIcons.check, color: appPrimaryColor),
           ],
         ),
       ),

@@ -9,6 +9,7 @@ import 'package:rentverse/common/bloc/auth/auth_state.dart';
 import 'package:rentverse/common/colors/custom_color.dart';
 import 'package:rentverse/features/auth/presentation/cubit/trust_index/cubit.dart';
 import 'package:rentverse/features/auth/presentation/cubit/trust_index/state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class TrustIndexPage extends StatelessWidget {
   const TrustIndexPage({super.key});
@@ -29,34 +30,28 @@ class TrustIndexPage extends StatelessWidget {
             final user = authState.user;
             developer.log(
               'TrustIndex - fetched auth/me',
-              name: 'TrustIndexPage',
-            );
+              name: 'TrustIndexPage');
             developer.log('user.id: ${user.id}', name: 'TrustIndexPage');
             developer.log(
               'roles: ${user.roles?.map((r) => r.role?.name).toList()}',
-              name: 'TrustIndexPage',
-            );
+              name: 'TrustIndexPage');
             developer.log(
               'tenant.ttiScore: ${user.tenantProfile?.ttiScore}',
-              name: 'TrustIndexPage',
-            );
+              name: 'TrustIndexPage');
             developer.log(
               'landlord.lrsScore: ${user.landlordProfile?.lrsScore}',
-              name: 'TrustIndexPage',
-            );
+              name: 'TrustIndexPage');
           } else {
             developer.log(
               'Auth state (not authenticated): $authState',
-              name: 'TrustIndexPage',
-            );
+              name: 'TrustIndexPage');
           }
         } catch (e, st) {
           developer.log(
             'Error while logging auth state: $e',
             name: 'TrustIndexPage',
             error: e,
-            stackTrace: st,
-          );
+            stackTrace: st);
         }
 
         return cubit;
@@ -64,8 +59,7 @@ class TrustIndexPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Trust Index'),
-          centerTitle: true,
-        ),
+          centerTitle: true),
         body: BlocBuilder<TrustIndexCubit, TrustIndexState>(
           builder: (context, state) {
             if (state.isLoading) {
@@ -81,17 +75,10 @@ class TrustIndexPage extends StatelessWidget {
                   const SizedBox(height: 16),
                   _ReviewsHeader(
                     rating: state.rating,
-                    count: state.reviewCount,
-                  ),
+                    count: state.reviewCount),
                   const SizedBox(height: 12),
-                  ...state.reviews.map((r) => _ReviewCard(review: r)),
-                ],
-              ),
-            );
-          },
-        ),
-      ),
-    );
+                  ...state.reviews.map((r) => _ReviewCard(review: r))]));
+          })));
   }
 }
 
@@ -126,9 +113,7 @@ class _ScoreCard extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
-                color: Colors.black.withOpacity(0.8),
-              ),
-            ),
+                color: Colors.black.withOpacity(0.8))),
             const SizedBox(height: 24),
             SizedBox(
               width: 200,
@@ -143,9 +128,7 @@ class _ScoreCard extends StatelessWidget {
                       percentage: percentage,
                       strokeWidth: 24,
                       color: _mintGreen,
-                      backgroundColor: _trackColor,
-                    ),
-                  ),
+                      backgroundColor: _trackColor)),
                   // Teks Angka di tengah
                   Text(
                     clampedScore.toStringAsFixed(0),
@@ -153,16 +136,7 @@ class _ScoreCard extends StatelessWidget {
                       fontSize: 48, // Ukuran font lebih besar
                       fontWeight: FontWeight.bold,
                       color: _mintGreen, // Warna teks mengikuti warna progress
-                      letterSpacing: -1,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                      letterSpacing: -1))]))])));
   }
 }
 
@@ -214,8 +188,7 @@ class _CircularProgressBarPainter extends CustomPainter {
       startAngle,
       sweepAngle,
       false, // useCenter false agar jadi cincin, bukan potongan pie
-      progressPaint,
-    );
+      progressPaint);
   }
 
   @override
@@ -241,8 +214,7 @@ class _ReviewsHeader extends StatelessWidget {
           children: [
             const Text(
               'Reviews from Owner',
-              style: TextStyle(fontWeight: FontWeight.w700),
-            ),
+              style: TextStyle(fontWeight: FontWeight.w700)),
             const SizedBox(height: 4),
             Row(
               children: [
@@ -250,23 +222,14 @@ class _ReviewsHeader extends StatelessWidget {
                   rating.toStringAsFixed(1),
                   style: const TextStyle(
                     color: Colors.teal,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                    fontWeight: FontWeight.bold)),
                 const SizedBox(width: 4),
-                const Icon(Icons.star, size: 16, color: Colors.amber),
+                Icon(LucideIcons.star, size: 16, color: Colors.amber),
                 const SizedBox(width: 6),
-                Text('($count) Tenant Assessment'),
-              ],
-            ),
-          ],
-        ),
+                Text('($count) Tenant Assessment')])]),
         TextButton(
           onPressed: () {},
-          child: Text('View All', style: TextStyle(color: appPrimaryColor)),
-        ),
-      ],
-    );
+          child: Text('View All', style: TextStyle(color: appPrimaryColor)))]);
   }
 }
 
@@ -296,18 +259,13 @@ class _ReviewCard extends StatelessWidget {
                     review.reviewerName.isNotEmpty
                         ? review.reviewerName[0].toUpperCase()
                         : '?',
-                    style: const TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                ),
+                    style: const TextStyle(fontWeight: FontWeight.w700))),
                 const SizedBox(width: 8),
                 Text(
                   review.reviewerName,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
+                  style: const TextStyle(fontWeight: FontWeight.w700)),
                 const Spacer(),
-                _RatingStars(rating: review.rating),
-              ],
-            ),
+                _RatingStars(rating: review.rating)]),
             const SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -320,44 +278,27 @@ class _ReviewCard extends StatelessWidget {
                     children: [
                       Text(
                         review.propertyTitle,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
-                      ),
+                        style: const TextStyle(fontWeight: FontWeight.w700)),
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          const Icon(
-                            Icons.location_on,
+                          Icon(LucideIcons.mapPin,
                             size: 14,
-                            color: Colors.grey,
-                          ),
+                            color: Colors.grey),
                           const SizedBox(width: 4),
                           Text(
                             review.city,
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
+                            style: const TextStyle(color: Colors.grey))]),
                       const SizedBox(height: 6),
                       Text(
                         review.priceLabel,
                         style: const TextStyle(
                           color: Colors.teal,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                          fontWeight: FontWeight.w700)),
                       const SizedBox(height: 6),
-                      _InfoRow(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                      _InfoRow()]))]),
             const SizedBox(height: 8),
-            Text(review.comment, style: const TextStyle(height: 1.3)),
-          ],
-        ),
-      ),
-    );
+            Text(review.comment, style: const TextStyle(height: 1.3))])));
   }
 }
 
@@ -372,12 +313,9 @@ class _RatingStars extends StatelessWidget {
       children: List.generate(
         5,
         (index) => Icon(
-          Icons.star,
+          LucideIcons.star,
           size: 16,
-          color: index < rating.round() ? Colors.amber : Colors.grey.shade300,
-        ),
-      ),
-    );
+          color: index < rating.round() ? Colors.amber : Colors.grey.shade300)));
   }
 }
 
@@ -397,18 +335,14 @@ class _PropertyThumb extends StatelessWidget {
             ? Image.network(
                 imageUrl!,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _placeholder(),
-              )
-            : _placeholder(),
-      ),
-    );
+                errorBuilder: (_, __, ___) => _placeholder())
+            : _placeholder()));
   }
 
   Widget _placeholder() {
     return Container(
       color: Colors.grey.shade200,
-      child: const Icon(Icons.image_not_supported_outlined, color: Colors.grey),
-    );
+      child: Icon(LucideIcons.image, color: Colors.grey));
   }
 }
 
@@ -417,18 +351,16 @@ class _InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: const [
-        Icon(Icons.bed_outlined, size: 14, color: Colors.grey),
+        Icon(LucideIcons.bed, size: 14, color: Colors.grey),
         SizedBox(width: 4),
         Text('3'),
         SizedBox(width: 10),
-        Icon(Icons.bathtub_outlined, size: 14, color: Colors.grey),
+        Icon(LucideIcons.bath, size: 14, color: Colors.grey),
         SizedBox(width: 4),
         Text('1'),
         SizedBox(width: 10),
-        Icon(Icons.square_foot, size: 14, color: Colors.grey),
+        Icon(LucideIcons.square, size: 14, color: Colors.grey),
         SizedBox(width: 4),
-        Text('500 Sqft'),
-      ],
-    );
+        Text('500 Sqft')]);
   }
 }

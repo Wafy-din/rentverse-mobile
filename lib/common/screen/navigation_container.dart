@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rentverse/common/widget/pull_to_refresh.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:rentverse/common/colors/custom_color.dart';
 
@@ -97,23 +98,18 @@ Widget _buildBottomNavigationBar(
 ) {
   return BlocBuilder<NavigationCubit, int>(
     builder: (context, index) {
-      final barItems =
-          items ??
+      final barItems = items ??
           const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            BottomNavigationBarItem(
+                icon: Icon(LucideIcons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(LucideIcons.search), label: 'Search'),
+            BottomNavigationBarItem(
+                icon: Icon(LucideIcons.user), label: 'Profile'),
           ];
       return Container(
         decoration: const BoxDecoration(
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, -1),
-              blurRadius: 8,
-            ),
-          ],
         ),
         child: BottomNavigationBar(
           backgroundColor: Colors.white,

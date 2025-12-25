@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/notification/domain/entity/notification_response_entity.dart';
 import 'package:rentverse/features/notification/domain/usecase/get_notifications_usecase.dart';
@@ -46,10 +47,10 @@ class _NotificationView extends StatelessWidget {
             builder: (context, state) {
               final hasUnread = state.items.any((n) => !n.isRead);
               if (!hasUnread) return const SizedBox.shrink();
-              
+
               return TextButton(
                 onPressed: () {
-                   context.read<NotificationCubit>().markAllRead();
+                  context.read<NotificationCubit>().markAllRead();
                 },
                 child: const Text('Read All'),
               );
@@ -82,7 +83,7 @@ class _NotificationBody extends StatelessWidget {
         }
 
         if (state.items.isEmpty) {
-           return RefreshIndicator(
+          return RefreshIndicator(
             onRefresh: () => context.read<NotificationCubit>().load(),
             child: ListView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -92,7 +93,8 @@ class _NotificationBody extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.notifications_off_outlined, size: 64, color: Colors.grey.shade400),
+                      Icon(LucideIcons.bellOff,
+                          size: 64, color: Colors.grey.shade400),
                       const SizedBox(height: 16),
                       Text(
                         'No notifications yet',
@@ -152,23 +154,19 @@ class _NotificationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final createdText = DateFormat('dd MMM, HH:mm').format(item.createdAt.toLocal());
+    final createdText =
+        DateFormat('dd MMM, HH:mm').format(item.createdAt.toLocal());
     final isRead = item.isRead;
 
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        border: !isRead 
-          ? Border.all(color: Theme.of(context).primaryColor.withOpacity(0.1), width: 1)
-          : null,
+        border: !isRead
+            ? Border.all(
+                color: Theme.of(context).primaryColor.withOpacity(0.2),
+                width: 1)
+            : Border.all(color: Colors.grey.shade200),
       ),
       child: Material(
         color: Colors.transparent,
@@ -199,8 +197,10 @@ class _NotificationTile extends StatelessWidget {
                               item.title,
                               style: TextStyle(
                                 fontSize: 15,
-                                fontWeight: !isRead ? FontWeight.w700 : FontWeight.w600,
-                                color: !isRead ? Colors.black87 : Colors.black54,
+                                fontWeight:
+                                    !isRead ? FontWeight.w700 : FontWeight.w600,
+                                color:
+                                    !isRead ? Colors.black87 : Colors.black54,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -279,7 +279,7 @@ class _NotificationTile extends StatelessWidget {
       ),
       child: Center(
         child: Icon(
-          Icons.notifications_outlined,
+          LucideIcons.bell,
           color: Colors.blue.shade600,
           size: 24,
         ),

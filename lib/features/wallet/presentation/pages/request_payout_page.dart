@@ -4,6 +4,7 @@ import 'package:rentverse/common/colors/custom_color.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/wallet/domain/usecase/request_payout_usecase.dart';
 import 'package:rentverse/features/wallet/presentation/cubit/payout_cubit.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class RequestPayoutPage extends StatefulWidget {
   const RequestPayoutPage({super.key});
@@ -90,14 +91,7 @@ class _RequestPayoutPageState extends State<RequestPayoutPage> {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(20)
       ),
       child: Form(
         key: _formKey,
@@ -116,7 +110,7 @@ class _RequestPayoutPageState extends State<RequestPayoutPage> {
             _buildTextField(
               controller: _amountCtrl,
               label: 'Amount',
-              icon: Icons.monetization_on_outlined,
+              icon: LucideIcons.dollarSign,
               keyboardType: TextInputType.number,
               validator: _validateAmount,
               prefixText: 'Rp ',
@@ -125,7 +119,7 @@ class _RequestPayoutPageState extends State<RequestPayoutPage> {
             _buildTextField(
               controller: _bankCtrl,
               label: 'Bank Name',
-              icon: Icons.account_balance_outlined,
+              icon: LucideIcons.wallet,
               validator: (v) =>
                   (v == null || v.trim().isEmpty) ? 'Bank name required' : null,
             ),
@@ -133,7 +127,7 @@ class _RequestPayoutPageState extends State<RequestPayoutPage> {
             _buildTextField(
               controller: _accountNoCtrl,
               label: 'Account Number',
-              icon: Icons.numbers,
+              icon: LucideIcons.hash,
               keyboardType: TextInputType.number,
               validator: (v) => (v == null || v.trim().isEmpty)
                   ? 'Account number required'
@@ -143,7 +137,7 @@ class _RequestPayoutPageState extends State<RequestPayoutPage> {
             _buildTextField(
               controller: _accountNameCtrl,
               label: 'Account Name',
-              icon: Icons.person_outline,
+              icon: LucideIcons.user,
               validator: (v) => (v == null || v.trim().isEmpty)
                   ? 'Account name required'
                   : null,
@@ -152,7 +146,7 @@ class _RequestPayoutPageState extends State<RequestPayoutPage> {
             _buildTextField(
               controller: _notesCtrl,
               label: 'Notes (optional)',
-              icon: Icons.note_alt_outlined,
+              icon: LucideIcons.fileText,
               maxLines: 3,
             ),
             const SizedBox(height: 32),
@@ -215,14 +209,7 @@ class _RequestPayoutPageState extends State<RequestPayoutPage> {
       height: 52,
       decoration: BoxDecoration(
         gradient: customLinearGradient,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: appPrimaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(16)
       ),
       child: ElevatedButton(
         onPressed: loading

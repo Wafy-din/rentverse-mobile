@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class AmenitiesWidget extends StatelessWidget {
   const AmenitiesWidget({super.key, this.amenities = const []});
@@ -20,15 +21,13 @@ class AmenitiesWidget extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(10),
-      ),
+        borderRadius: BorderRadius.circular(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'Features',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-          ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
           const SizedBox(height: 10),
           Wrap(
             spacing: 18,
@@ -41,24 +40,14 @@ class AmenitiesWidget extends StatelessWidget {
                       Icon(
                         _iconForAmenity(amenity),
                         size: 16,
-                        color: Colors.teal,
-                      ),
+                        color: Colors.teal),
                       const SizedBox(width: 6),
                       Text(
                         _formatAmenityLabel(amenity),
                         style: const TextStyle(
                           fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-                .toList(),
-          ),
-        ],
-      ),
-    );
+                          fontWeight: FontWeight.w600))]))
+                .toList())]));
   }
 
   IconData _iconForAmenity(String raw) {
@@ -66,19 +55,19 @@ class AmenitiesWidget extends StatelessWidget {
     switch (key) {
       case 'pool':
       case 'swimming_pool':
-        return Icons.pool;
+        return LucideIcons.waves;
       case 'wifi':
-        return Icons.wifi;
+        return LucideIcons.wifi;
       case 'ac':
       case 'air_conditioner':
       case 'air_conditioning':
-        return Icons.ac_unit;
+        return LucideIcons.wind;
       case 'garden':
-        return Icons.park_outlined;
+        return LucideIcons.trees;
       case 'kitchen':
-        return Icons.kitchen;
+        return LucideIcons.chefHat;
       default:
-        return Icons.check_circle_outline;
+        return LucideIcons.check;
     }
   }
 

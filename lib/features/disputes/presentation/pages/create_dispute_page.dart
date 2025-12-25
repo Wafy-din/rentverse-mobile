@@ -59,14 +59,7 @@ class _CreateDisputePageState extends State<CreateDisputePage> {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 20,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
+                  borderRadius: BorderRadius.circular(16)
                 ),
                 child: Form(
                   key: _formKey,
@@ -152,14 +145,7 @@ class _CreateDisputePageState extends State<CreateDisputePage> {
                         height: 50,
                         decoration: BoxDecoration(
                           gradient: customLinearGradient,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: appSecondaryColor.withOpacity(0.3),
-                              blurRadius: 12,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                          borderRadius: BorderRadius.circular(12)
                         ),
                         child: Material(
                           color: Colors.transparent,

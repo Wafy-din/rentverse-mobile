@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rentverse/features/bookings/domain/entity/res/booking_list_entity.dart';
 import 'package:rentverse/features/disputes/presentation/pages/create_dispute_page.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class LandlordBookingDetailPage extends StatelessWidget {
   const LandlordBookingDetailPage({super.key, required this.booking});
@@ -22,8 +23,7 @@ class LandlordBookingDetailPage extends StatelessWidget {
       return NumberFormat.currency(
         locale: 'id_ID',
         symbol: symbol.isNotEmpty ? '$symbol ' : 'Rp ',
-        decimalDigits: 0,
-      ).format(booking.payment.amount);
+        decimalDigits: 0).format(booking.payment.amount);
     } catch (_) {
       return '${booking.payment.currency} ${booking.payment.amount}';
     }
@@ -45,17 +45,11 @@ class LandlordBookingDetailPage extends StatelessWidget {
                     booking: booking,
                     dateRangeText: _dateRange(
                       booking.startDate,
-                      booking.endDate,
-                    ),
-                  ),
+                      booking.endDate)),
                   const SizedBox(height: 16),
                   _PaymentCard(
                     amountText: _amount(),
-                    status: booking.payment.status,
-                  ),
-                ],
-              ),
-            ),
+                    status: booking.payment.status)])),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -63,30 +57,19 @@ class LandlordBookingDetailPage extends StatelessWidget {
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                icon: const Icon(Icons.report),
+                    borderRadius: BorderRadius.circular(12))),
+                icon: Icon(LucideIcons.fileText),
                 label: const Text('Raise Dispute'),
                 onPressed: () async {
                   final submitted = await Navigator.of(context).push<bool>(
                     MaterialPageRoute(
                       builder: (_) =>
-                          CreateDisputePage.withProvider(bookingId: booking.id),
-                    ),
-                  );
+                          CreateDisputePage.withProvider(bookingId: booking.id)));
                   if (submitted == true && context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Dispute submitted')),
-                    );
+                      const SnackBar(content: Text('Dispute submitted')));
                   }
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                }))])));
   }
 }
 
@@ -102,43 +85,30 @@ class _InfoCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2)),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(12)),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             booking.property.title,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-          ),
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
           const SizedBox(height: 6),
           Text(
             booking.property.city,
-            style: const TextStyle(color: Colors.grey),
-          ),
+            style: const TextStyle(color: Colors.grey)),
           const SizedBox(height: 10),
           Row(
             children: [
-              const Icon(Icons.event, size: 18),
+              Icon(LucideIcons.calendarDays, size: 18),
               const SizedBox(width: 8),
-              Expanded(child: Text(dateRangeText)),
-            ],
-          ),
+              Expanded(child: Text(dateRangeText))]),
           const SizedBox(height: 10),
           Row(
             children: [
-              const Icon(Icons.info_outline, size: 18),
+              Icon(LucideIcons.info, size: 18),
               const SizedBox(width: 8),
-              _StatusChip(label: booking.status),
-            ],
-          ),
-        ],
-      ),
-    );
+              _StatusChip(label: booking.status)])]));
   }
 }
 
@@ -154,31 +124,21 @@ class _PaymentCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2)),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(12)),
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'Payment',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-          ),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
           const SizedBox(height: 8),
           Row(
             children: [
-              const Icon(Icons.receipt_long, size: 18),
+              Icon(LucideIcons.receipt, size: 18),
               const SizedBox(width: 8),
               Expanded(child: Text(amountText)),
-              _StatusChip(label: status),
-            ],
-          ),
-        ],
-      ),
-    );
+              _StatusChip(label: status)])]));
   }
 }
 
@@ -208,16 +168,12 @@ class _StatusChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withOpacity(0.15),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color),
-      ),
+        border: Border.all(color: color)),
       child: Text(
         label,
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w700,
-          color: color,
-        ),
-      ),
-    );
+          color: color)));
   }
 }
