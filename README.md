@@ -1,5 +1,7 @@
 # RENTVERSE - Mobile Application
 
+<img width="3028" height="1600" alt="Container (1)" src="https://github.com/user-attachments/assets/fd719c69-2b8f-4e98-8e36-963fc1bacb98" />
+
 Platform properti rental modern yang menghubungkan pemilik properti (landlord) dengan penyewa (tenant) dengan fitur-fitur canggih seperti chat real-time, payment gateway, dan verifikasi identitas.
 
 ## 📱 Tentang Aplikasi
