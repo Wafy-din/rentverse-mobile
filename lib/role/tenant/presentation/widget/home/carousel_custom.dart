@@ -22,7 +22,7 @@ class CarouselCustom extends StatelessWidget {
                 itemBuilder: (context, index, realIndex) {
                   final imagePath = state.images[index];
 
-                  // Widget Gambar
+
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: SizedBox(
@@ -33,10 +33,8 @@ class CarouselCustom extends StatelessWidget {
                 },
                 options: CarouselOptions(
                   aspectRatio: 30 / 12,
-
                   viewportFraction: 1,
                   enlargeCenterPage: false,
-
                   autoPlay: true,
                   autoPlayInterval: const Duration(seconds: 4),
                   onPageChanged: (index, reason) {

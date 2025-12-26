@@ -5,6 +5,7 @@ import 'package:rentverse/features/chat/domain/entity/chat_message_entity.dart';
 import 'package:rentverse/features/chat/presentation/cubit/chat_room/chat_room_cubit.dart';
 import 'package:rentverse/features/chat/presentation/cubit/chat_room/chat_room_state.dart';
 import 'package:rentverse/features/chat/presentation/cubit/chat_room_view/cubit.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class ChatRoomView extends StatelessWidget {
   const ChatRoomView({
@@ -42,14 +43,7 @@ class ChatRoomView extends StatelessWidget {
                       propertyTitle,
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                       maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+                      overflow: TextOverflow.ellipsis)]))])),
         body: Column(
           children: [
             Expanded(
@@ -61,16 +55,13 @@ class ChatRoomView extends StatelessWidget {
                   if (state.status == ChatRoomStatus.failure) {
                     return Center(
                       child: Text(
-                        state.error ?? 'Gagal memuat pesan, coba lagi',
-                      ),
-                    );
+                        state.error ?? 'Gagal memuat pesan, coba lagi'));
                   }
 
                   final messages = state.messages;
                   if (messages.isEmpty) {
                     return const Center(
-                      child: Text('Mulai percakapan pertama'),
-                    );
+                      child: Text('Mulai percakapan pertama'));
                   }
 
                   final items = _buildChatItems(messages);
@@ -79,8 +70,7 @@ class ChatRoomView extends StatelessWidget {
                     controller: viewState.scrollController,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
-                      vertical: 8,
-                    ),
+                      vertical: 8),
                     itemCount: items.length,
                     itemBuilder: (context, index) {
                       final item = items[index];
@@ -90,24 +80,15 @@ class ChatRoomView extends StatelessWidget {
                       return _MessageBubble(
                         message: item.message!,
                         otherUserName: otherUserName,
-                        selfName: 'You',
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
+                        selfName: 'You');
+                    });
+                })),
             _ChatInput(
               controller: viewState.controller,
               onSend: (text) {
                 context.read<ChatRoomCubit>().sendMessage(text);
                 viewCubit.clearInput();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+              })])));
   }
 }
 
@@ -140,8 +121,7 @@ class _MessageBubble extends StatelessWidget {
       return CircleAvatar(
         radius: 16,
         backgroundColor: Colors.grey.shade300,
-        child: Text(initial, style: const TextStyle(color: Colors.black87)),
-      );
+        child: Text(initial, style: const TextStyle(color: Colors.black87)));
     }
 
     return Padding(
@@ -161,15 +141,7 @@ class _MessageBubble extends StatelessWidget {
                 color: bubbleColor,
                 borderRadius: isMe
                     ? radius.copyWith(topRight: Radius.circular(0))
-                    : radius.copyWith(topLeft: Radius.circular(0)),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
+                    : radius.copyWith(topLeft: Radius.circular(0))),
               child: Column(
                 crossAxisAlignment: isMe
                     ? CrossAxisAlignment.end
@@ -180,23 +152,13 @@ class _MessageBubble extends StatelessWidget {
                     style: TextStyle(
                       color: textColor,
                       fontSize: 14,
-                      height: 1.3,
-                    ),
-                  ),
+                      height: 1.3)),
                   const SizedBox(height: 4),
                   Text(
                     timeLabel,
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 11),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 11))]))),
           if (isMe) const SizedBox(width: 8),
-          if (isMe) avatar(initialFor(true)),
-        ],
-      ),
-    );
+          if (isMe) avatar(initialFor(true))]));
   }
 }
 
@@ -211,8 +173,7 @@ class _InitialAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: 18,
       backgroundColor: Colors.grey.shade300,
-      child: Text(initial, style: const TextStyle(color: Colors.black87)),
-    );
+      child: Text(initial, style: const TextStyle(color: Colors.black87)));
   }
 }
 
@@ -235,19 +196,13 @@ class _DateHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
             color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(12),
-          ),
+            borderRadius: BorderRadius.circular(12)),
           child: Text(
             label,
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: Colors.black54,
-            ),
-          ),
-        ),
-      ),
-    );
+              color: Colors.black54)))));
   }
 }
 
@@ -273,8 +228,7 @@ List<_ChatListItem> _buildChatItems(List<ChatMessageEntity> messages) {
     final day = DateTime(
       msg.createdAt.year,
       msg.createdAt.month,
-      msg.createdAt.day,
-    );
+      msg.createdAt.day);
     if (currentDay == null || day.isAfter(currentDay)) {
       currentDay = day;
       items.add(_ChatListItem.header(day));
@@ -309,15 +263,10 @@ class _ChatInput extends StatelessWidget {
                   fillColor: Colors.grey.shade100,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
+                    borderSide: BorderSide.none),
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 14,
-                    vertical: 10,
-                  ),
-                ),
-              ),
-            ),
+                    vertical: 10)))),
             const SizedBox(width: 10),
             BlocBuilder<ChatRoomCubit, ChatRoomState>(
               builder: (context, state) {
@@ -329,14 +278,8 @@ class _ChatInput extends StatelessWidget {
                           final text = controller.text.trim();
                           if (text.isNotEmpty) onSend(text);
                         },
-                  icon: const Icon(Icons.send),
-                  color: const Color(0xFF1CD8D2),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+                  icon: Icon(LucideIcons.send),
+                  color: const Color(0xFF1CD8D2));
+              })])));
   }
 }

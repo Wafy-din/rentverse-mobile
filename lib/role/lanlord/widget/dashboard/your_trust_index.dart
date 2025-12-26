@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class YourTrustIndex extends StatelessWidget {
   const YourTrustIndex({super.key, required this.score});
 
-  final double score; // 0-100
+  final double score;
 
   @override
   Widget build(BuildContext context) {
@@ -15,22 +15,13 @@ class YourTrustIndex extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x11000000),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(14)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
             'Your Trust Index',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-          ),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
           const SizedBox(height: 12),
           SizedBox(
             height: 140,
@@ -43,22 +34,14 @@ class YourTrustIndex extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF00BFA6),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+                    color: Color(0xFF00BFA6))))))]));
   }
 }
 
 class _RingPainter extends CustomPainter {
   _RingPainter({required this.progress});
 
-  final double progress; // 0-1
+  final double progress;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -77,22 +60,20 @@ class _RingPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..shader = const LinearGradient(
-        colors: [Color(0xFF00E0C3), Color(0xFF00BFA6)],
-      ).createShader(rect)
+        colors: [Color(0xFF00E0C3), Color(0xFF00BFA6)]).createShader(rect)
       ..strokeCap = StrokeCap.round;
 
-    // background ring
+
     canvas.drawCircle(center, radius, bgPaint);
 
-    // foreground arc
+
     final sweep = 2 * math.pi * progress;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       -math.pi / 2,
       sweep,
       false,
-      fgPaint,
-    );
+      fgPaint);
   }
 
   @override

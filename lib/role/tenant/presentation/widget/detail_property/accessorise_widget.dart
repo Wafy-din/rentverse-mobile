@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentverse/features/property/domain/entity/list_property_entity.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class AccessoriseWidget extends StatelessWidget {
   const AccessoriseWidget({super.key, required this.attributes});
@@ -37,15 +38,8 @@ class AccessoriseWidget extends StatelessWidget {
                         : '${item.value} ${item.label}',
                     style: const TextStyle(
                       fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            )
-            .toList(),
-      ),
-    );
+                      fontWeight: FontWeight.w600))]))
+            .toList()));
   }
 
   _AccessoriseData? _mapAttribute(PropertyAttributeEntity attr) {
@@ -59,32 +53,31 @@ class AccessoriseWidget extends StatelessWidget {
     return _AccessoriseData(
       label: type.label,
       value: value,
-      icon: _iconFor(slug, iconKey),
-    );
+      icon: _iconFor(slug, iconKey));
   }
 
   IconData _iconFor(String slug, String iconKey) {
     switch (slug) {
       case 'bedroom':
-        return Icons.bed;
+        return LucideIcons.bed;
       case 'bathroom':
-        return Icons.bathtub_outlined;
+        return LucideIcons.bath;
       case 'furnishing':
-        return Icons.chair_alt;
+        return LucideIcons.armchair;
       case 'area':
       case 'size':
       case 'sqft':
-        return Icons.square_foot;
+        return LucideIcons.square;
       default:
         switch (iconKey) {
           case 'bed':
-            return Icons.bed;
+            return LucideIcons.bed;
           case 'bath':
-            return Icons.bathtub_outlined;
+            return LucideIcons.bath;
           case 'sofa':
-            return Icons.chair_alt;
+            return LucideIcons.armchair;
           default:
-            return Icons.info_outline;
+            return LucideIcons.info;
         }
     }
   }

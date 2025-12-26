@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class StatItem {
   const StatItem({
@@ -40,25 +41,20 @@ class StatsWidget extends StatelessWidget {
           children: [
             const Text(
               'Stats',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-            ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
             const Spacer(),
             if (periods.isNotEmpty)
               DropdownButton<String>(
                 value: periodValue,
                 items: periods
                     .map(
-                      (p) => DropdownMenuItem<String>(value: p, child: Text(p)),
-                    )
+                      (p) => DropdownMenuItem<String>(value: p, child: Text(p)))
                     .toList(),
                 onChanged: onPeriodChanged,
                 underline: const SizedBox.shrink(),
                 style: const TextStyle(fontSize: 12, color: Colors.black87),
                 iconSize: 18,
-                borderRadius: BorderRadius.circular(10),
-              ),
-          ],
-        ),
+                borderRadius: BorderRadius.circular(10))]),
         Row(
           children:
               items
@@ -66,15 +62,9 @@ class StatsWidget extends StatelessWidget {
                     (item) => Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10),
-                        child: _StatCard(item: item),
-                      ),
-                    ),
-                  )
+                        child: _StatCard(item: item))))
                   .toList()
-                ..last = Expanded(child: _StatCard(item: items.last)),
-        ),
-      ],
-    );
+                ..last = Expanded(child: _StatCard(item: items.last)))]);
   }
 }
 
@@ -88,15 +78,7 @@ class _StatCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x11000000),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(12)),
       padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,23 +89,17 @@ class _StatCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: const Color(0xFFE6FBF6),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                  borderRadius: BorderRadius.circular(10)),
                 child: Icon(
                   item.icon,
                   color: const Color(0xFF00BFA6),
-                  size: 18,
-                ),
-              ),
+                  size: 18)),
               const Spacer(),
-              const Icon(Icons.more_vert, size: 18, color: Colors.black54),
-            ],
-          ),
+              Icon(LucideIcons.moreVertical, size: 18, color: Colors.black54)]),
           const SizedBox(height: 10),
           Text(
             item.title,
-            style: const TextStyle(fontSize: 13, color: Colors.black87),
-          ),
+            style: const TextStyle(fontSize: 13, color: Colors.black87)),
           const SizedBox(height: 6),
           Row(
             children: [
@@ -131,22 +107,13 @@ class _StatCard extends StatelessWidget {
                 item.value,
                 style: const TextStyle(
                   fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+                  fontWeight: FontWeight.w700)),
               const Spacer(),
               Text(
                 item.delta,
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF00BFA6),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+                  color: Color(0xFF00BFA6)))])]));
   }
 }

@@ -9,6 +9,7 @@ import 'package:rentverse/features/auth/presentation/screen/verify_ikyc_screen.d
 import 'package:rentverse/features/auth/presentation/screen/otp_verification_screen.dart';
 import 'package:rentverse/features/auth/domain/usecase/send_otp_usecase.dart';
 import 'package:rentverse/core/resources/data_state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -58,8 +59,7 @@ class EditProfileScreen extends StatelessWidget {
                             hintText: 'Full Name',
                             initialValue: state.nameValue,
                             onChanged: cubit.setName,
-                            prefixIcon: const Icon(
-                              Icons.person_outline,
+                            prefixIcon: Icon(LucideIcons.user,
                               color: Colors.grey,
                             ),
                           ),
@@ -74,8 +74,7 @@ class EditProfileScreen extends StatelessWidget {
                             hintText: 'Email',
                             initialValue: state.emailValue,
                             onChanged: cubit.setEmail,
-                            prefixIcon: const Icon(
-                              Icons.email_outlined,
+                            prefixIcon: Icon(LucideIcons.mail,
                               color: Colors.grey,
                             ),
                             suffixIcon: TextButton(
@@ -85,7 +84,7 @@ class EditProfileScreen extends StatelessWidget {
                                       final target = state.emailValue;
                                       if (target.isEmpty) return;
 
-                                      // send OTP then navigate to verification screen
+
                                       final sendUsecase = sl<SendOtpUseCase>();
                                       final params = SendOtpParams(
                                         target: target,
@@ -109,7 +108,7 @@ class EditProfileScreen extends StatelessWidget {
                                             );
 
                                         if (verified == true) {
-                                          // refresh profile on return
+
                                           cubit.loadProfile();
                                         }
                                       } else if (res is DataFailed) {
@@ -170,8 +169,7 @@ class EditProfileScreen extends StatelessWidget {
                             initialValue: state.phoneValue,
                             keyboardType: TextInputType.phone,
                             onChanged: cubit.setPhone,
-                            prefixIcon: const Icon(
-                              Icons.phone_outlined,
+                            prefixIcon: Icon(LucideIcons.phone,
                               color: Colors.grey,
                             ),
                             suffixIcon: TextButton(
@@ -272,7 +270,7 @@ class EditProfileScreen extends StatelessWidget {
                               child: Row(
                                 children: const [
                                   Icon(
-                                    Icons.hourglass_bottom,
+                                    LucideIcons.hourglass,
                                     color: appSecondaryColor,
                                   ),
                                   SizedBox(width: 10),
@@ -299,8 +297,7 @@ class EditProfileScreen extends StatelessWidget {
                             CustomTextField(
                               hintText: 'ID',
                               readOnly: true,
-                              prefixIcon: const Icon(
-                                Icons.badge_outlined,
+                              prefixIcon: Icon(LucideIcons.badge,
                                 color: Colors.grey,
                               ),
                               suffixIcon: TextButton(
@@ -379,7 +376,7 @@ class GradientCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
       shaderCallback: (bounds) => customLinearGradient.createShader(bounds),
-      child: const Icon(Icons.check_circle, color: Colors.white, size: 16),
+      child: Icon(LucideIcons.check, color: Colors.white, size: 16),
     );
   }
 }

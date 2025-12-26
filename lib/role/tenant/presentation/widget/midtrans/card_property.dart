@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rentverse/common/utils/network_utils.dart';
 import 'package:rentverse/features/bookings/domain/entity/res/booking_response_entity.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class CardProperty extends StatelessWidget {
   const CardProperty({
@@ -26,11 +27,7 @@ class CardProperty extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(12)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,15 +46,9 @@ class CardProperty extends StatelessWidget {
                         width: 120,
                         height: 88,
                         color: Colors.grey.shade200,
-                        child: const Icon(
-                          Icons.broken_image,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    )
-                  : _placeholder(),
-            ),
-          ),
+                        child: Icon(LucideIcons.imageOff,
+                          color: Colors.grey)))
+                  : _placeholder())),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -67,46 +58,31 @@ class CardProperty extends StatelessWidget {
                   p?.title ?? 'Property',
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
-                    fontSize: 15,
-                  ),
-                ),
+                    fontSize: 15)),
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Icon(Icons.location_on_outlined, size: 14),
+                    Icon(LucideIcons.mapPin, size: 14),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
                         p?.address ?? '-',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
+                        style: const TextStyle(fontSize: 12)))]),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
                   runSpacing: 4,
                   children: [
-                    _chip(Icons.calendar_today, _fmtDate(startDate)),
-                    _chip(Icons.schedule, billingPeriod),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                    _chip(LucideIcons.calendar, _fmtDate(startDate)),
+                    _chip(LucideIcons.clock, billingPeriod)])]))]));
   }
 
   Widget _placeholder() {
     return Container(
       color: Colors.grey.shade200,
-      child: const Icon(Icons.image_not_supported_outlined, color: Colors.grey),
-    );
+      child: Icon(LucideIcons.image, color: Colors.grey));
   }
 
   Widget _chip(IconData icon, String text) {
@@ -114,17 +90,13 @@ class CardProperty extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(8),
-      ),
+        borderRadius: BorderRadius.circular(8)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 14, color: Colors.grey.shade700),
           const SizedBox(width: 4),
-          Text(text, style: const TextStyle(fontSize: 12)),
-        ],
-      ),
-    );
+          Text(text, style: const TextStyle(fontSize: 12))]));
   }
 }
 

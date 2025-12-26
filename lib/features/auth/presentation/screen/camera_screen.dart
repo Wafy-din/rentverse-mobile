@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -88,8 +89,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
-                            Icons.error_outline,
+                          Icon(LucideIcons.alertCircle,
                             color: Colors.white,
                             size: 48,
                           ),
@@ -113,18 +113,18 @@ class _CameraScreenState extends State<CameraScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done &&
                             _controller != null) {
-                          // Make preview fill available width while keeping
-                          // correct camera aspect ratio so it doesn't stretch.
+
+
                           return LayoutBuilder(
                             builder: (context, constraints) {
                               final aspect = _controller!.value.aspectRatio;
-                              // Fill available height and compute width from aspect
+
                               final height = constraints.maxHeight;
                               final width = height * (aspect == 0 ? 1 : aspect);
                               return Center(
                                 child: SizedBox(
-                                  // width may be larger than screen; it will be clipped,
-                                  // giving a tall/full-height camera preview like typical apps.
+
+
                                   width: width,
                                   height: height,
                                   child: ClipRRect(
@@ -154,7 +154,7 @@ class _CameraScreenState extends State<CameraScreen> {
               top: 16,
               left: 16,
               child: IconButton(
-                icon: const Icon(Icons.close, color: Colors.white),
+                icon: Icon(LucideIcons.x, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop<File?>(null),
               ),
             ),

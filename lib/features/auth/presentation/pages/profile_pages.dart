@@ -10,6 +10,7 @@ import 'package:rentverse/features/auth/presentation/cubit/profile/state.dart';
 import 'package:rentverse/features/auth/presentation/pages/trust_index_page.dart';
 import 'package:rentverse/features/wallet/presentation/pages/my_wallet.dart';
 import 'package:rentverse/features/disputes/presentation/pages/my_disputes_page.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -17,9 +18,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ProfileCubit(sl())..loadProfile(),
-      child: const _ProfileView(),
-    );
+        create: (_) => ProfileCubit(sl())..loadProfile(),
+        child: const _ProfileView());
   }
 }
 
@@ -28,138 +28,97 @@ class _ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
-      builder: (context, state) {
-        if (state.status == ProfileStatus.loading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state.status == ProfileStatus.failure) {
-          return Center(child: Text(state.errorMessage ?? 'Error'));
-        }
-        final user = state.user;
-        if (user == null) {
-          return const Center(child: Text('No user data'));
-        }
+    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
+      if (state.status == ProfileStatus.loading) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      if (state.status == ProfileStatus.failure) {
+        return Center(child: Text(state.errorMessage ?? 'Error'));
+      }
+      final user = state.user;
+      if (user == null) {
+        return const Center(child: Text('No user data'));
+      }
 
-        final displayName = user.name?.isNotEmpty == true ? user.name! : 'User';
-        final roleLabel =
-            user.roles
-                ?.map((r) => r.role?.name)
-                .whereType<String>()
-                .join(', ') ??
-            '';
+      final displayName = user.name?.isNotEmpty == true ? user.name! : 'User';
+      final roleLabel =
+          user.roles?.map((r) => r.role?.name).whereType<String>().join(', ') ??
+              '';
 
-        return SafeArea(
-          child: Stack(
-            children: [
-              Container(color: Colors.white),
+      return SafeArea(
+          child: Stack(children: [
+        Container(color: Colors.white),
 
-              // Header background layer
-              SizedBox(
-                height: 260,
-                width: double.infinity,
-                child: const _HeaderBackground(),
-              ),
 
-              // Content layer
-              SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 140, 16, 24),
-                child: Column(
-                  children: [
-                    _ProfileHeader(
-                      name: displayName,
-                      role: roleLabel,
-                      avatarUrl: user.avatarUrl,
-                      isVerified: user.isVerified,
-                    ),
-                    const SizedBox(height: 20),
-                    _ProfileMenuCard(
-                      items: [
-                        _ProfileMenuItem(
-                          icon: Icons.edit_outlined,
-                          label: 'Edit Profile',
-                          badgeCount: 3,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const EditProfileScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                        _ProfileMenuItem(
-                          icon: Icons.star_outline,
-                          label: 'Trust Index',
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const TrustIndexPage(),
-                              ),
-                            );
-                          },
-                        ),
-                        _ProfileMenuItem(
-                          icon: Icons.report,
-                          label: 'Disputes',
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const MyDisputesPage(),
-                              ),
-                            );
-                          },
-                        ),
+        SizedBox(
+            height: 260,
+            width: double.infinity,
+            child: const _HeaderBackground()),
 
-                        _ProfileMenuItem(
-                          icon: Icons.wallet,
-                          label: 'My Wallet',
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const MyWalletPage(),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    _ProfileMenuCard(
-                      items: [
-                        const _ProfileMenuItem(
-                          icon: Icons.notifications_none,
-                          label: 'Notifications',
-                        ),
-                        const _ProfileMenuItem(
-                          icon: Icons.lock_outline,
-                          label: 'Security',
-                        ),
-                        const _ProfileMenuItem(
-                          icon: Icons.language,
-                          label: 'Language',
-                        ),
-                        _ProfileMenuItem(
-                          icon: Icons.logout,
-                          label: 'Logout',
-                          iconColor: Colors.red,
-                          valueColor: Colors.red,
-                          onTap: () async {
-                            await sl<LogoutUseCase>()();
-                            // refresh auth state so navigation reacts
-                            // ignore: use_build_context_synchronously
-                            context.read<AuthCubit>().checkAuthStatus();
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+
+        SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(16, 140, 16, 24),
+            child: Column(children: [
+              _ProfileHeader(
+                  name: displayName,
+                  role: roleLabel,
+                  avatarUrl: user.avatarUrl,
+                  isVerified: user.isVerified),
+              const SizedBox(height: 20),
+              _ProfileMenuCard(items: [
+                _ProfileMenuItem(
+                    icon: LucideIcons.edit,
+                    label: 'Edit Profile',
+                    badgeCount: 3,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const EditProfileScreen()));
+                    }),
+                _ProfileMenuItem(
+                    icon: LucideIcons.star,
+                    label: 'Trust Index',
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const TrustIndexPage()));
+                    }),
+                _ProfileMenuItem(
+                    icon: LucideIcons.fileText,
+                    label: 'Disputes',
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const MyDisputesPage()));
+                    }),
+                _ProfileMenuItem(
+                    icon: LucideIcons.wallet,
+                    label: 'My Wallet',
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const MyWalletPage()));
+                    })
+              ]),
+              const SizedBox(height: 12),
+              _ProfileMenuCard(items: [
+                const _ProfileMenuItem(
+                    icon: LucideIcons.bell, label: 'Notifications'),
+                const _ProfileMenuItem(
+                    icon: LucideIcons.lock, label: 'Security'),
+                const _ProfileMenuItem(
+                    icon: LucideIcons.globe, label: 'Language'),
+                _ProfileMenuItem(
+                    icon: LucideIcons.logOut,
+                    label: 'Logout',
+                    iconColor: Colors.red,
+                    valueColor: Colors.red,
+                    onTap: () async {
+                      await sl<LogoutUseCase>()();
+
+
+                      context.read<AuthCubit>().checkAuthStatus();
+                    })
+              ])
+            ]))
+      ]));
+    });
   }
 }
 
@@ -168,34 +127,26 @@ class _HeaderBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        const Image(
+    return Stack(fit: StackFit.expand, children: [
+      const Image(
           image: AssetImage('assets/background_profile.png'),
-          fit: BoxFit.cover,
-        ),
-        Positioned(
+          fit: BoxFit.cover),
+      Positioned(
           bottom: 0,
           left: 0,
           right: 0,
           child: Container(
-            height: 48,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.white.withOpacity(0.0),
-                  Colors.white.withOpacity(0.8),
-                  Colors.white,
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+              height: 48,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                    Colors.white.withOpacity(0.0),
+                    Colors.white.withOpacity(0.8),
+                    Colors.white
+                  ]))))
+    ]);
   }
 }
 
@@ -214,131 +165,81 @@ class _ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Column(
-          children: [
-            // Bagian Avatar (Tidak berubah)
-            Stack(
-              children: [
-                CircleAvatar(
-                  radius: 48,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    radius: 44,
-                    backgroundImage: avatarUrl != null
-                        ? NetworkImage(avatarUrl!)
-                        : null,
-                    child: avatarUrl == null
-                        ? Text(
-                            name.isNotEmpty ? name[0].toUpperCase() : '?',
-                            style: const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : null,
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 6),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.edit,
-                      size: 16,
-                      color: appSecondaryColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              name,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            if (role.isNotEmpty)
-              Text(
-                role,
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
-              ),
-            const SizedBox(height: 6),
+    return Stack(alignment: Alignment.bottomCenter, children: [
+      Column(children: [
 
-            // --- PERUBAHAN ADA DI SINI (ROW) ---
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // 1. Tombol Edit dipindahkan ke paling KIRI
-                GestureDetector(
-                  onTap: () async {
-                    // Navigate to edit screen; EditProfileScreen handles UpdateProfileUseCase.
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const EditProfileScreen(),
-                      ),
-                    );
-                    // After returning, refresh profile
-                    // ignore: use_build_context_synchronously
-                    if (context.mounted) {
-                      final cubit = context.read<ProfileCubit>();
-                      cubit.loadProfile();
-                    }
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: const [
-                        BoxShadow(color: Colors.black12, blurRadius: 6),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.edit,
-                      size: 14,
-                      color: appSecondaryColor,
-                    ),
-                  ),
-                ),
+        Stack(children: [
+          CircleAvatar(
+              radius: 48,
+              backgroundColor: Colors.white,
+              child: CircleAvatar(
+                  radius: 44,
+                  backgroundImage:
+                      avatarUrl != null ? NetworkImage(avatarUrl!) : null,
+                  child: avatarUrl == null
+                      ? Text(name.isNotEmpty ? name[0].toUpperCase() : '?',
+                          style: const TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold))
+                      : null)),
+          Positioned(
+              right: 0,
+              bottom: 0,
+              child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: const BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: Icon(LucideIcons.edit,
+                      size: 16, color: appSecondaryColor)))
+        ]),
+        const SizedBox(height: 8),
+        Text(name,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+        if (role.isNotEmpty)
+          Text(role,
+              style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
+        const SizedBox(height: 6),
 
-                const SizedBox(width: 8), // Jarak antara tombol edit dan status
-                // 2. Ikon Verified/Error
-                Icon(
-                  isVerified ? Icons.verified : Icons.error_outline,
-                  size: 14,
+
+        Row(mainAxisSize: MainAxisSize.min, children: [
+
+          GestureDetector(
+              onTap: () async {
+
+                await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const EditProfileScreen()));
+
+
+                if (context.mounted) {
+                  final cubit = context.read<ProfileCubit>();
+                  cubit.loadProfile();
+                }
+              },
+              child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: Icon(LucideIcons.edit,
+                      size: 14, color: appSecondaryColor))),
+
+          const SizedBox(width: 8),
+
+          Icon(isVerified ? LucideIcons.badgeCheck : LucideIcons.alertCircle,
+              size: 14,
+              color:
+                  isVerified ? Colors.green.shade600 : Colors.orange.shade700),
+          const SizedBox(width: 6),
+
+
+          Text(isVerified ? 'Verified' : 'Not verified',
+              style: TextStyle(
+                  fontSize: 12,
                   color: isVerified
-                      ? Colors.green.shade600
+                      ? Colors.green.shade700
                       : Colors.orange.shade700,
-                ),
-                const SizedBox(width: 6),
-
-                // 3. Teks Verified/Not Verified
-                Text(
-                  isVerified ? 'Verified' : 'Not verified',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isVerified
-                        ? Colors.green.shade700
-                        : Colors.orange.shade700,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+                  fontWeight: FontWeight.w600))
+        ])
+      ])
+    ]);
   }
 }
 
@@ -350,23 +251,15 @@ class _ProfileMenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2)),
-        ],
-      ),
-      child: Column(
-        children: [
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(12)),
+        child: Column(children: [
           for (int i = 0; i < items.length; i++) ...[
             _ProfileMenuTile(item: items[i]),
             if (i != items.length - 1)
-              Divider(height: 1, color: Colors.grey.shade200),
-          ],
-        ],
-      ),
-    );
+              Divider(height: 1, color: Colors.grey.shade200)
+          ]
+        ]));
   }
 }
 
@@ -395,34 +288,23 @@ class _ProfileMenuTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(item.icon, color: item.iconColor ?? appPrimaryColor),
-      title: Text(
-        item.label,
-        style: const TextStyle(fontWeight: FontWeight.w500),
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+        leading: Icon(item.icon, color: item.iconColor ?? appPrimaryColor),
+        title: Text(item.label,
+            style: const TextStyle(fontWeight: FontWeight.w500)),
+        trailing: Row(mainAxisSize: MainAxisSize.min, children: [
           if (item.badgeCount != null)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: item.valueColor ?? Colors.red,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                '${item.badgeCount}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          const Icon(Icons.chevron_right, color: Colors.grey),
-        ],
-      ),
-      onTap: item.onTap,
-    );
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                    color: item.valueColor ?? Colors.red,
+                    borderRadius: BorderRadius.circular(12)),
+                child: Text('${item.badgeCount}',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600))),
+          Icon(LucideIcons.chevronRight, color: Colors.grey)
+        ]),
+        onTap: item.onTap);
   }
 }

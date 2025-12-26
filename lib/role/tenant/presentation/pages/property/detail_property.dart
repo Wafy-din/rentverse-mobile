@@ -1,4 +1,4 @@
-//lib/role/tenant/presentation/pages/property/detail_property.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -22,6 +22,7 @@ import 'package:rentverse/features/bookings/presentation/widget/property_availab
 import 'package:rentverse/role/tenant/presentation/pages/property/booking_property.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/detail_property/cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/detail_property/state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class DetailProperty extends StatelessWidget {
   const DetailProperty({super.key, required this.property});
@@ -117,7 +118,7 @@ class DetailProperty extends StatelessWidget {
                               const SizedBox(height: 8),
                               _LocationMap(property: currentProperty),
                               const SizedBox(height: 12),
-                              // Property availability (unavailable ranges)
+
                               PropertyAvailabilityWidget(
                                 propertyId: currentProperty.id,
                               ),
@@ -240,7 +241,7 @@ class _LocationMap extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Icon(Icons.place, color: appSecondaryColor),
+            Icon(LucideIcons.mapPin, color: appSecondaryColor),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -277,8 +278,7 @@ class _LocationMap extends StatelessWidget {
                       point: center,
                       width: 40,
                       height: 40,
-                      child: const Icon(
-                        Icons.location_pin,
+                      child: Icon(LucideIcons.mapPin,
                         size: 40,
                         color: appSecondaryColor,
                       ),

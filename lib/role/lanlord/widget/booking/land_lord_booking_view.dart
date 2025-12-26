@@ -4,6 +4,7 @@ import 'package:rentverse/role/lanlord/widget/my_property/paid_tab.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/payment_tab.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/rejected_tab.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/request_tab.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class LandLordBookingView extends StatelessWidget {
   const LandLordBookingView({super.key});
@@ -17,7 +18,7 @@ class LandLordBookingView extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.black,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(LucideIcons.arrowLeft),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: const Text(

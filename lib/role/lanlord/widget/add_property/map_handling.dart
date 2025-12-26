@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:rentverse/features/map/presentation/screen/open_map_screen.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class MapPicker extends StatelessWidget {
   const MapPicker({
@@ -89,7 +90,7 @@ class MapPreview extends StatelessWidget {
             child: FlutterMap(
               options: MapOptions(
                 initialCenter: LatLng(lat, lon),
-                initialZoom: 15, // Slightly closer zoom for better context
+                initialZoom: 15,
                 interactionOptions: const InteractionOptions(
                   flags: InteractiveFlag.none,
                 ),
@@ -107,8 +108,7 @@ class MapPreview extends StatelessWidget {
                       point: LatLng(lat, lon),
                       width: 60,
                       height: 60,
-                      child: const Icon(
-                        Icons.location_on,
+                      child: Icon(LucideIcons.mapPin,
                         size: 50,
                         color: Colors.redAccent,
                         shadows: [

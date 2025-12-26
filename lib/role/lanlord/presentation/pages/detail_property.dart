@@ -1,4 +1,4 @@
-//lib/role/tenant/presentation/pages/property/detail_property.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -23,6 +23,7 @@ import 'package:rentverse/role/tenant/presentation/pages/property/booking_proper
 import 'package:rentverse/role/lanlord/presentation/pages/edit_property.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/detail_property/cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/detail_property/state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class DetailProperty extends StatelessWidget {
   const DetailProperty({
@@ -174,7 +175,7 @@ class DetailProperty extends StatelessWidget {
                               const SizedBox(height: 8),
                               _LocationMap(property: currentProperty),
                               const SizedBox(height: 12),
-                              // Property availability (unavailable ranges)
+
                               PropertyAvailabilityWidget(
                                 propertyId: currentProperty.id,
                               ),
@@ -199,18 +200,18 @@ class DetailProperty extends StatelessWidget {
                       children: [
                         BlocBuilder<AuthCubit, AuthState>(
                           builder: (context, authState) {
-                            // Default: disable booking for non-authenticated users
+
                             bool canBook = false;
                             if (authState is Authenticated) {
                               final user = authState.user;
-                              // If tenant role exists, check tenantProfile KYC
+
                               if (user.isTenant) {
                                 final kyc = user.tenantProfile?.kycStatus;
                                 canBook =
                                     kyc != null &&
                                     kyc.toUpperCase() == 'VERIFIED';
                               } else {
-                                // Non-tenant (landlord/admin) — allow booking disabled
+
                                 canBook = false;
                               }
                             }
@@ -258,7 +259,7 @@ class DetailProperty extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      icon: const Icon(Icons.edit),
+                                      icon: Icon(LucideIcons.edit),
                                       label: const Text('Edit Property'),
                                       style: OutlinedButton.styleFrom(
                                         padding: const EdgeInsets.symmetric(
@@ -357,7 +358,7 @@ class _LocationMap extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Icon(Icons.place, color: appSecondaryColor),
+            Icon(LucideIcons.mapPin, color: appSecondaryColor),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -394,8 +395,7 @@ class _LocationMap extends StatelessWidget {
                       point: center,
                       width: 40,
                       height: 40,
-                      child: const Icon(
-                        Icons.location_pin,
+                      child: Icon(LucideIcons.mapPin,
                         size: 40,
                         color: appSecondaryColor,
                       ),

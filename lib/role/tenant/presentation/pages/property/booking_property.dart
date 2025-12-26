@@ -11,6 +11,7 @@ import 'package:rentverse/role/tenant/presentation/cubit/booking/state.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/get_user/cubit.dart';
 import 'package:rentverse/role/tenant/presentation/cubit/get_user/state.dart';
 import 'package:rentverse/role/tenant/presentation/pages/rent/receipt_booking.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class BookingPropertyPage extends StatelessWidget {
   const BookingPropertyPage({super.key, required this.property});
@@ -24,36 +25,28 @@ class BookingPropertyPage extends StatelessWidget {
         BlocProvider(
           create: (_) =>
               BookingCubit(sl(), sl())
-                ..initBillingPeriods(property.allowedBillingPeriods),
-        ),
-        BlocProvider(create: (_) => GetUserCubit(sl(), sl())..load()),
-      ],
+                ..initBillingPeriods(property.allowedBillingPeriods)),
+        BlocProvider(create: (_) => GetUserCubit(sl(), sl())..load())],
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Rental Agreement Form'),
           centerTitle: true,
           backgroundColor: Colors.white,
-          elevation: 0,
-        ),
+          elevation: 0),
         body: SafeArea(
           child: BlocConsumer<BookingCubit, BookingState>(
             listener: (context, state) {
               if (state.error != null) {
                 ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(state.error!)));
+                  context).showSnackBar(SnackBar(content: Text(state.error!)));
               }
               if (state.result != null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.result!.message ?? 'Booking created'),
-                  ),
-                );
+                    content: Text(state.result!.message ?? 'Booking created')));
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => ReceiptBookingPage(response: state.result!),
-                  ),
-                );
+                    builder: (_) => ReceiptBookingPage(response: state.result!)));
               }
             },
             builder: (context, state) {
@@ -66,9 +59,7 @@ class BookingPropertyPage extends StatelessWidget {
                         id: 0,
                         slug: '',
                         label: 'Durasi belum tersedia',
-                        durationMonths: 0,
-                      ),
-              );
+                        durationMonths: 0));
 
               final durationLabel = state.billingPeriods.isEmpty
                   ? 'Durasi belum tersedia'
@@ -99,15 +90,13 @@ class BookingPropertyPage extends StatelessWidget {
                   final country = property.country.trim();
                   final ownerAddress = [
                     city,
-                    country,
-                  ].where((part) => part.isNotEmpty).join(', ');
+                    country].where((part) => part.isNotEmpty).join(', ');
                   final resolvedOwnerAddress = ownerAddress.isEmpty
                       ? '-'
                       : ownerAddress;
 
                   Logger().i(
-                    'Booking autofill -> tenant: {name: $tenantName, email: $tenantEmail, phone: $tenantPhone}; owner: {name: $ownerName, email: $ownerEmail, phone: $ownerPhone, address: $resolvedOwnerAddress}',
-                  );
+                    'Booking autofill -> tenant: {name: $tenantName, email: $tenantEmail, phone: $tenantPhone}; owner: {name: $ownerName, email: $ownerEmail, phone: $ownerPhone, address: $resolvedOwnerAddress}');
 
                   return SingleChildScrollView(
                     padding: const EdgeInsets.all(16),
@@ -122,10 +111,8 @@ class BookingPropertyPage extends StatelessWidget {
                             key: ValueKey('tenant-name-$tenantName'),
                             hintText: tenantName,
                             initialValue: tenantName,
-                            prefixIcon: const Icon(Icons.person_outline),
-                            readOnly: true,
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.user),
+                            readOnly: true)),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Email',
@@ -134,20 +121,16 @@ class BookingPropertyPage extends StatelessWidget {
                             hintText: tenantEmail,
                             initialValue: tenantEmail,
                             keyboardType: TextInputType.emailAddress,
-                            prefixIcon: const Icon(Icons.email_outlined),
-                            readOnly: true,
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.mail),
+                            readOnly: true)),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Current Address',
                           child: CustomTextField(
                             hintText: '-',
                             initialValue: '-',
-                            prefixIcon: const Icon(Icons.home_outlined),
-                            readOnly: false,
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.home),
+                            readOnly: false)),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Phone Number',
@@ -156,10 +139,8 @@ class BookingPropertyPage extends StatelessWidget {
                             hintText: tenantPhone,
                             initialValue: tenantPhone,
                             keyboardType: TextInputType.phone,
-                            prefixIcon: const Icon(Icons.phone_outlined),
-                            readOnly: true,
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.phone),
+                            readOnly: true)),
 
                         const SizedBox(height: 24),
                         _SectionTitle('Owner Details ( Auto-filled )'),
@@ -170,45 +151,36 @@ class BookingPropertyPage extends StatelessWidget {
                             key: ValueKey('owner-name-$ownerName'),
                             hintText: ownerName,
                             initialValue: ownerName,
-                            prefixIcon: const Icon(Icons.person_outline),
-                            readOnly: true,
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.user),
+                            readOnly: true)),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Current Address',
                           child: CustomTextField(
                             key: ValueKey(
-                              'owner-address-$resolvedOwnerAddress',
-                            ),
+                              'owner-address-$resolvedOwnerAddress'),
                             hintText: resolvedOwnerAddress,
                             initialValue: resolvedOwnerAddress,
-                            prefixIcon: const Icon(Icons.home_outlined),
-                            readOnly: true,
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.home),
+                            readOnly: true)),
 
                         const SizedBox(height: 24),
                         _SectionTitle(
-                          'Property & Rent Details ( Auto-filled )',
-                        ),
+                          'Property & Rent Details ( Auto-filled )'),
                         const SizedBox(height: 8),
                         _LabeledField(
                           label: 'Property Address',
                           child: CustomTextField(
                             key: ValueKey(
-                              'property-address-${property.address}',
-                            ),
+                              'property-address-${property.address}'),
                             hintText: property.address.isEmpty
                                 ? '-'
                                 : property.address,
                             initialValue: property.address.isEmpty
                                 ? '-'
                                 : property.address,
-                            prefixIcon: const Icon(Icons.location_on_outlined),
-                            readOnly: true,
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.mapPin),
+                            readOnly: true)),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Start Rent Date',
@@ -224,32 +196,24 @@ class BookingPropertyPage extends StatelessWidget {
                                     ? state.startDate
                                     : now,
                                 firstDate: now,
-                                lastDate: DateTime(now.year + 3),
-                              );
+                                lastDate: DateTime(now.year + 3));
                               if (picked != null) {
                                 cubit.setStartDate(picked);
                               }
                             },
-                            suffixIcon: const Icon(
-                              Icons.calendar_today_outlined,
-                            ),
-                          ),
-                        ),
+                            suffixIcon: Icon(LucideIcons.calendar))),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Duration',
                           child: CustomTextField(
                             key: ValueKey(
-                              'duration-$durationLabel-${state.billingPeriodId}',
-                            ),
+                              'duration-$durationLabel-${state.billingPeriodId}'),
                             hintText: durationLabel,
                             initialValue: durationLabel,
                             readOnly: true,
-                            suffixIcon: const Icon(Icons.arrow_drop_down),
+                            suffixIcon: Icon(LucideIcons.chevronDown),
                             onTap: () =>
-                                _showBillingPeriodPicker(context, state, cubit),
-                          ),
-                        ),
+                                _showBillingPeriodPicker(context, state, cubit))),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Monthly Rent Price',
@@ -258,9 +222,7 @@ class BookingPropertyPage extends StatelessWidget {
                             hintText: priceLabel,
                             initialValue: priceLabel,
                             readOnly: true,
-                            prefixIcon: const Icon(Icons.payments_outlined),
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.creditCard))),
                         const SizedBox(height: 12),
                         _LabeledField(
                           label: 'Property Type',
@@ -269,9 +231,7 @@ class BookingPropertyPage extends StatelessWidget {
                             hintText: propertyTypeLabel,
                             initialValue: propertyTypeLabel,
                             readOnly: true,
-                            prefixIcon: const Icon(Icons.apartment_outlined),
-                          ),
-                        ),
+                            prefixIcon: Icon(LucideIcons.building))),
 
                         const SizedBox(height: 24),
                         SizedBox(
@@ -289,9 +249,7 @@ class BookingPropertyPage extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 14),
                               backgroundColor: Colors.teal,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
+                                borderRadius: BorderRadius.circular(12))),
                             child: state.isLoading
                                 ? const SizedBox(
                                     height: 18,
@@ -299,19 +257,12 @@ class BookingPropertyPage extends StatelessWidget {
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation(
-                                        Colors.white,
-                                      ),
-                                    ),
-                                  )
+                                        Colors.white)))
                                 : const Text(
                                     'Kirim Booking',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                          ),
-                        ),
+                                      fontWeight: FontWeight.w700)))),
                         const SizedBox(height: 12),
                         if (state.result != null)
                           _Card(
@@ -320,26 +271,14 @@ class BookingPropertyPage extends StatelessWidget {
                               children: [
                                 const Text(
                                   'Booking Created',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                ),
+                                  style: TextStyle(fontWeight: FontWeight.w700)),
                                 const SizedBox(height: 6),
                                 Text('Booking ID: ${state.result!.bookingId}'),
                                 Text('Invoice ID: ${state.result!.invoiceId}'),
                                 Text('Status: ${state.result!.status}'),
-                                Text('Amount: Rp${state.result!.amount}'),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ),
-    );
+                                Text('Amount: Rp${state.result!.amount}')]))]));
+                });
+            }))));
   }
 
   static String _formatDate(DateTime date) {
@@ -354,8 +293,7 @@ class BookingPropertyPage extends StatelessWidget {
     final formatter = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp ',
-      decimalDigits: 0,
-    );
+      decimalDigits: 0);
     return formatter.format(value);
   }
 }
@@ -369,8 +307,7 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-    );
+      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700));
   }
 }
 
@@ -387,27 +324,22 @@ class _LabeledField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
-        ),
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
         const SizedBox(height: 6),
-        child,
-      ],
-    );
+        child]);
   }
 }
 
 Future<void> _showBillingPeriodPicker(
   BuildContext context,
   BookingState state,
-  BookingCubit cubit,
-) async {
+  BookingCubit cubit) async {
   if (state.billingPeriods.isEmpty || state.isBillingPeriodsLoading) return;
 
   await showModalBottomSheet<void>(
     context: context,
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-    ),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
     builder: (ctx) {
       return SafeArea(
         child: Padding(
@@ -418,30 +350,21 @@ Future<void> _showBillingPeriodPicker(
             children: [
               const Text(
                 'Pilih Billing Period',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-              ),
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
               const SizedBox(height: 12),
               ...state.billingPeriods.map(
                 (p) => ListTile(
                   title: Text('${p.label} (${p.durationMonths} bln)'),
                   trailing: state.billingPeriodId == p.id
-                      ? const Icon(Icons.check, color: Colors.teal)
+                      ? Icon(LucideIcons.check, color: Colors.teal)
                       : null,
                   onTap: () {
                     Logger().i(
-                      'Billing period selected -> id=${p.id}, label=${p.label}, duration=${p.durationMonths}',
-                    );
+                      'Billing period selected -> id=${p.id}, label=${p.label}, duration=${p.durationMonths}');
                     cubit.setBillingPeriod(p.id);
                     Navigator.of(ctx).pop();
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
+                  }))])));
+    });
 }
 
 class _Card extends StatelessWidget {
@@ -456,12 +379,7 @@ class _Card extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
-        ],
-      ),
-      child: child,
-    );
+        borderRadius: BorderRadius.circular(12)),
+      child: child);
   }
 }

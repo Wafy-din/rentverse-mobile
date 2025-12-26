@@ -1,7 +1,8 @@
-// lib/features/auth/presentation/screen/choose_role_screen.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import '../../../../common/colors/custom_color.dart';
 import '../widget/custom_button.dart';
 import '../cubit/choose_role/cubit.dart';
@@ -18,10 +19,10 @@ class ChooseRoleScreen extends StatelessWidget {
         backgroundColor: appBackgroundColor,
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: Icon(LucideIcons.arrowLeft),
             onPressed: () => Navigator.of(context).maybePop(),
           ),
-          // title: const Text('Choose your role'),
+
           centerTitle: false,
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -31,7 +32,6 @@ class ChooseRoleScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               const SizedBox(height: 16),
               Text(
@@ -92,16 +92,16 @@ class ChooseRoleScreen extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: selected ? null : Border.all(color: Colors.grey.shade300),
-          // When selected: show thin gradient border, not a thick fill
+
           gradient: selected ? customLinearGradient : null,
         ),
-        // Thin border effect when selected, normal padding otherwise
+
         padding: EdgeInsets.all(selected ? 2 : 0),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            // Keep inner white card with subtle shadow-like appearance
+
           ),
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -135,8 +135,8 @@ class ChooseRoleScreen extends StatelessWidget {
           onTap: state.selected == null
               ? () {}
               : () => context.read<ChooseRoleCubit>().submit((role) {
-                  Navigator.pop(context, role);
-                }),
+                    Navigator.pop(context, role);
+                  }),
         );
       },
     );

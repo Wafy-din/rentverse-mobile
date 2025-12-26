@@ -1,7 +1,8 @@
-//lib/role/tenant/presentation/widget/detail_property/booking_button.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:rentverse/common/colors/custom_color.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class BookingButton extends StatelessWidget {
   const BookingButton({
@@ -19,24 +20,15 @@ class BookingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final formattedPrice = _formatPrice(price);
 
-    // Bungkus dengan Container agar punya background putih & shadow
-    // Serta padding bawah untuk safe area (secara manual atau via SafeArea)
+
+
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 10,
-            offset: const Offset(0, -4), // Shadow ke atas
-          ),
-        ],
-      ),
+      decoration: BoxDecoration(color: Colors.white),
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
-            mainAxisSize: MainAxisSize.min, // PENTING: Agar tidak expand
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
@@ -48,20 +40,21 @@ class BookingButton extends StatelessWidget {
                 formattedPrice,
                 style: const TextStyle(
                   color: appPrimaryColor,
-                  fontSize: 18, // Sedikit diperbesar
+                  fontSize: 18,
                   fontWeight: FontWeight.w800,
                 ),
               ),
               const SizedBox(height: 12),
 
-              // TOMBOL UTAMA (ElevatedButton dengan Gradient)
+
               if (onChat != null)
                 Row(
                   children: [
                     Expanded(
                       child: OutlinedButton.icon(
                         onPressed: onChat,
-                        icon: const Icon(Icons.chat, color: appPrimaryColor),
+                        icon: Icon(LucideIcons.messageSquare,
+                            color: appPrimaryColor),
                         label: const Text(
                           'Chat Owner',
                           style: TextStyle(
@@ -118,7 +111,7 @@ class _BookingGradientButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (onTap == null) {
-      // Disabled appearance: gray background and muted text
+
       return Container(
         width: double.infinity,
         height: 50,

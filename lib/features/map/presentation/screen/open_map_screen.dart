@@ -8,6 +8,7 @@ import 'package:rentverse/common/colors/custom_color.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/map/presentation/cubit/reverse_geocode_cubit.dart';
 import 'package:rentverse/features/map/presentation/cubit/reverse_geocode_state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class OpenMapScreen extends StatefulWidget {
   const OpenMapScreen({
@@ -26,7 +27,7 @@ class OpenMapScreen extends StatefulWidget {
 class _OpenMapScreenState extends State<OpenMapScreen> {
   late LatLng _center;
   late final MapController _mapController;
-  // small debounce to avoid spamming reverse geocode while user pans
+
   Timer? _debounce;
   late final ReverseGeocodeCubit _reverseCubit;
 
@@ -37,7 +38,7 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
     _mapController = MapController();
     _reverseCubit = ReverseGeocodeCubit(sl())
       ..fetch(_center.latitude, _center.longitude);
-    // initial fetch done above; we'll trigger further fetches from onPositionChanged
+
   }
 
   @override
@@ -65,12 +66,12 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
                       initialZoom: 15,
                       onTap: (_, point) {
                         _mapController.move(point, _mapController.camera.zoom);
-                        // onPositionChanged will trigger and update _center & fetch address
+
                       },
                       onPositionChanged: (pos, hasGesture) {
-                        final newCenter = pos.center;
+                        final newCenter = pos.center ?? _center;
                         setState(() => _center = newCenter);
-                        // When user is panning (hasGesture == true) debounce the fetch
+
                         _debounce?.cancel();
                         if (hasGesture) {
                           _debounce = Timer(
@@ -83,7 +84,7 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
                             },
                           );
                         } else {
-                          // immediate fetch when movement ends/tap move
+
                           _reverseCubit.fetch(
                             _center.latitude,
                             _center.longitude,
@@ -104,8 +105,7 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
                             point: _center,
                             width: 48,
                             height: 48,
-                            child: const Icon(
-                              Icons.location_on,
+                            child: Icon(LucideIcons.mapPin,
                               size: 48,
                               color: Colors.redAccent,
                               shadows: [
@@ -129,14 +129,8 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, -4),
-                  ),
-                ],
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20))
               ),
               child: BlocBuilder<ReverseGeocodeCubit, ReverseGeocodeState>(
                 builder: (context, state) {
@@ -157,9 +151,10 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
                       ),
                     );
                   }
-                  
+
                   final location = state.location;
-                  final displayName = location?.displayName ?? 'Tap map to select';
+                  final displayName =
+                      location?.displayName ?? 'Tap map to select';
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,10 +179,11 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
                         ),
                       ),
                       if (location != null) ...[
-                         const SizedBox(height: 4),
-                         Text(
+                        const SizedBox(height: 4),
+                        Text(
                           '${location.lat.toStringAsFixed(5)}, ${location.lon.toStringAsFixed(5)}',
-                          style: const TextStyle(color: Colors.grey, fontSize: 12),
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                       ],
                       const SizedBox(height: 20),
@@ -201,15 +197,17 @@ class _OpenMapScreenState extends State<OpenMapScreen> {
                         child: Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: location != null ? () {
-                              Navigator.of(context).pop({
-                                'lat': location.lat,
-                                'lon': location.lon,
-                                'displayName': location.displayName,
-                                'city': location.city,
-                                'country': location.country,
-                              });
-                            } : null,
+                            onTap: location != null
+                                ? () {
+                                    Navigator.of(context).pop({
+                                      'lat': location.lat,
+                                      'lon': location.lon,
+                                      'displayName': location.displayName,
+                                      'city': location.city,
+                                      'country': location.country,
+                                    });
+                                  }
+                                : null,
                             borderRadius: BorderRadius.circular(12),
                             child: Center(
                               child: Text(

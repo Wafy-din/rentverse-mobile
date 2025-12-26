@@ -5,6 +5,7 @@ import 'package:rentverse/common/colors/custom_color.dart';
 import 'package:rentverse/features/property/domain/entity/list_property_entity.dart';
 import 'package:rentverse/features/property/domain/usecase/update_property_usecase.dart';
 import 'package:rentverse/role/lanlord/widget/add_property/map_handling.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class EditPropertyPage extends StatefulWidget {
   const EditPropertyPage({super.key, required this.property});
@@ -16,7 +17,7 @@ class EditPropertyPage extends StatefulWidget {
 }
 
 class _EditPropertyPageState extends State<EditPropertyPage> {
-  // Basic
+
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   late TextEditingController _projectController;
@@ -25,7 +26,7 @@ class _EditPropertyPageState extends State<EditPropertyPage> {
   late TextEditingController _countryController;
   late TextEditingController _sizeController;
 
-  // Pricing & amenities
+
   late TextEditingController _priceController;
   String _furnishing = 'Unfurnished';
   List<String> _features = [];
@@ -134,10 +135,10 @@ class _EditPropertyPageState extends State<EditPropertyPage> {
             ) ??
             _priceController.text.trim();
       }
-      // types and listing
+
       fields['propertyTypeId'] = _propertyTypeId;
       fields['listingTypeId'] = _listingTypeId;
-      // Basic metadata
+
       final metadata = <String, dynamic>{};
       if (_projectController.text.trim().isNotEmpty)
         metadata['projectName'] = _projectController.text.trim();
@@ -151,17 +152,17 @@ class _EditPropertyPageState extends State<EditPropertyPage> {
       metadata['furnishing'] = _furnishing;
       if (metadata.isNotEmpty) fields['metadata'] = metadata;
 
-      // Images
+
       if (_images.isNotEmpty) fields['images'] = _images;
 
-      // Location
+
       if (_addressController.text.trim().isNotEmpty)
         fields['address'] = _addressController.text.trim();
       if (_cityController.text.trim().isNotEmpty)
         fields['city'] = _cityController.text.trim();
       if (_countryController.text.trim().isNotEmpty)
         fields['country'] = _countryController.text.trim();
-      // billing period
+
       fields['billingPeriodIds'] = [_billingPeriodId];
 
       final usecase = sl<UpdatePropertyUseCase>();
@@ -391,7 +392,6 @@ class _EditPropertyPageState extends State<EditPropertyPage> {
   }
 }
 
-// --- Helper widgets (copied-slimmed from add property pages) ---
 
 class _LabeledField extends StatelessWidget {
   const _LabeledField({
@@ -498,12 +498,12 @@ class _NumberStepper extends StatelessWidget {
           children: [
             IconButton(
               onPressed: value > 0 ? () => onChanged(value - 1) : null,
-              icon: const Icon(Icons.remove_circle_outline),
+              icon: Icon(LucideIcons.minus),
             ),
             Text('$value', style: const TextStyle(fontWeight: FontWeight.w700)),
             IconButton(
               onPressed: () => onChanged(value + 1),
-              icon: const Icon(Icons.add_circle_outline),
+              icon: Icon(LucideIcons.plus),
             ),
           ],
         ),
@@ -534,7 +534,7 @@ class _ImagePickerRow extends StatelessWidget {
         const SizedBox(height: 8),
         OutlinedButton.icon(
           onPressed: onPick,
-          icon: const Icon(Icons.upload_file),
+          icon: Icon(LucideIcons.upload),
           label: const Text('Select Images'),
         ),
       ],

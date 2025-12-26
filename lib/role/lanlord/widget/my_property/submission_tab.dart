@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rentverse/role/lanlord/presentation/cubit/property/cubit.dart';
 import 'package:rentverse/role/lanlord/presentation/cubit/property/state.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/property_components.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class SubmissionTab extends StatelessWidget {
   const SubmissionTab({super.key});
@@ -74,7 +75,7 @@ class _PendingBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: const [
-          Icon(Icons.access_time, size: 16, color: Color(0xFF555555)),
+          Icon(LucideIcons.clock, size: 16, color: Color(0xFF555555)),
           SizedBox(width: 6),
           Text(
             'Waiting for Admin approval',

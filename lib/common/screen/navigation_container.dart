@@ -1,8 +1,9 @@
-// lib/common/screen/navigation_container.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rentverse/common/widget/pull_to_refresh.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:rentverse/common/colors/custom_color.dart';
 
@@ -45,7 +46,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
 
   Future<void> _restartPage(int index) async {
     setState(() => _reloadTicks[index]++);
-    // Small delay so RefreshIndicator can complete smoothly
+
     await Future.delayed(const Duration(milliseconds: 200));
   }
 
@@ -89,7 +90,6 @@ Widget _buildBody(
   );
 }
 
-// Example listener: show a quick snackbar when a global reload is requested.
 
 Widget _buildBottomNavigationBar(
   BuildContext context,
@@ -97,23 +97,18 @@ Widget _buildBottomNavigationBar(
 ) {
   return BlocBuilder<NavigationCubit, int>(
     builder: (context, index) {
-      final barItems =
-          items ??
+      final barItems = items ??
           const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+            BottomNavigationBarItem(
+                icon: Icon(LucideIcons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(LucideIcons.search), label: 'Search'),
+            BottomNavigationBarItem(
+                icon: Icon(LucideIcons.user), label: 'Profile'),
           ];
       return Container(
         decoration: const BoxDecoration(
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, -1),
-              blurRadius: 8,
-            ),
-          ],
         ),
         child: BottomNavigationBar(
           backgroundColor: Colors.white,

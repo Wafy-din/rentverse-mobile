@@ -9,6 +9,7 @@ import 'package:rentverse/features/auth/presentation/screen/camera_screen.dart';
 import 'package:rentverse/features/auth/presentation/pages/profile_pages.dart';
 import 'package:rentverse/features/kyc/presentation/cubit/verify_ikyc_cubit.dart';
 import 'package:rentverse/features/kyc/presentation/cubit/verify_ikyc_state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class VerifyIKycScreen extends StatelessWidget {
   const VerifyIKycScreen({super.key});
@@ -59,7 +60,7 @@ class VerifyIKycScreen extends StatelessWidget {
             appBar: AppBar(
               title: const Text('Verify iKYC'),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
+                icon: Icon(LucideIcons.arrowLeft),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
@@ -150,7 +151,7 @@ class VerifyIKycScreen extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.check_circle, color: appSecondaryColor, size: 64),
+            Icon(LucideIcons.check, color: appSecondaryColor, size: 64),
             const SizedBox(height: 12),
             Text(
               state.successMessage ?? 'KYC successfully submitted',
@@ -200,10 +201,10 @@ class VerifyIKycScreen extends StatelessWidget {
               onPressed: state.isSubmitting
                   ? null
                   : () => cubit.goToStep(
-                      state.step == VerifyIKycStep.selfie
-                          ? VerifyIKycStep.ktp
-                          : VerifyIKycStep.selfie,
-                    ),
+                        state.step == VerifyIKycStep.selfie
+                            ? VerifyIKycStep.ktp
+                            : VerifyIKycStep.selfie,
+                      ),
               child: const Text('Kembali'),
             ),
           ),
@@ -371,7 +372,7 @@ class _UploadCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Icon(
-                        Icons.cloud_upload_outlined,
+                        LucideIcons.uploadCloud,
                         size: 40,
                         color: Colors.grey,
                       ),
@@ -422,7 +423,7 @@ class _PreviewTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: file == null
-                  ? const Icon(Icons.photo_outlined, color: Colors.grey)
+                  ? Icon(LucideIcons.image, color: Colors.grey)
                   : ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.file(file!, fit: BoxFit.cover),
@@ -444,7 +445,7 @@ class _PreviewTile extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.edit, color: appSecondaryColor),
+            Icon(LucideIcons.edit, color: appSecondaryColor),
           ],
         ),
       ),

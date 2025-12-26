@@ -7,6 +7,7 @@ import 'package:rentverse/features/wallet/presentation/cubit/cubit.dart';
 import 'package:rentverse/features/wallet/presentation/cubit/state.dart';
 import 'package:rentverse/features/wallet/domain/entity/my_wallet_response_entity.dart';
 import 'package:rentverse/features/wallet/presentation/pages/request_payout_page.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class MyWalletPage extends StatelessWidget {
   const MyWalletPage({super.key});
@@ -31,9 +32,9 @@ class _WalletView extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.history),
+            icon: Icon(LucideIcons.history),
             onPressed: () {
-              // TODO: Navigate to transaction history
+
             },
           ),
         ],
@@ -49,7 +50,7 @@ class _WalletView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                  Icon(LucideIcons.alertCircle, size: 64, color: Colors.red),
                   const SizedBox(height: 16),
                   Text(state.errorMessage ?? 'Failed to load wallet'),
                   const SizedBox(height: 16),
@@ -111,14 +112,7 @@ class _BalanceCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: customLinearGradient,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: appPrimaryColor.withOpacity(0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(20)
       ),
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -170,8 +164,7 @@ class _BalanceCard extends StatelessWidget {
             if (wallet.updatedAt != null)
               Row(
                 children: [
-                  const Icon(
-                    Icons.access_time,
+                  Icon(LucideIcons.clock,
                     color: Colors.white70,
                     size: 14,
                   ),
@@ -196,10 +189,10 @@ class _QuickActions extends StatelessWidget {
       children: [
         Expanded(
           child: _ActionButton(
-            icon: Icons.add_circle_outline,
+            icon: LucideIcons.plus,
             label: 'Top Up',
             onTap: () {
-              // TODO: Navigate to top up
+
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Top Up coming soon')),
               );
@@ -209,10 +202,10 @@ class _QuickActions extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
           child: _ActionButton(
-            icon: Icons.send_outlined,
+            icon: LucideIcons.send,
             label: 'Transfer',
             onTap: () {
-              // TODO: Navigate to transfer
+
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Transfer coming soon')),
               );
@@ -222,7 +215,7 @@ class _QuickActions extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
           child: _ActionButton(
-            icon: Icons.account_balance_wallet_outlined,
+            icon: LucideIcons.wallet,
             label: 'Withdraw',
             onTap: () {
               Navigator.of(context)
@@ -319,7 +312,7 @@ class _TransactionsSection extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                // TODO: Navigate to all transactions
+
               },
               child: const Text('View All'),
             ),
@@ -348,7 +341,7 @@ class _EmptyTransactions extends StatelessWidget {
       child: Column(
         children: [
           Icon(
-            Icons.receipt_long_outlined,
+            LucideIcons.receipt,
             size: 64,
             color: Colors.grey.shade300,
           ),
@@ -393,15 +386,15 @@ class _TransactionCard extends StatelessWidget {
     switch (type?.toLowerCase()) {
       case 'topup':
       case 'top_up':
-        return Icons.add_circle;
+        return LucideIcons.plus;
       case 'withdraw':
-        return Icons.remove_circle;
+        return LucideIcons.minus;
       case 'transfer':
-        return Icons.swap_horiz;
+        return LucideIcons.arrowLeftRight;
       case 'payment':
-        return Icons.payment;
+        return LucideIcons.creditCard;
       default:
-        return Icons.receipt;
+        return LucideIcons.receipt;
     }
   }
 

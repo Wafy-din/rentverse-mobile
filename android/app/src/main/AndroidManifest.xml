@@ -14,7 +14,7 @@
         </intent>
     </queries>
     <application
-        android:label="rentverse"
+        android:label="RENTVERSE"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">

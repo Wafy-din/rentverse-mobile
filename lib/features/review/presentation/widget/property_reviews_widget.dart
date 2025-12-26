@@ -4,6 +4,7 @@ import 'package:rentverse/common/widget/pull_to_refresh.dart';
 import 'package:rentverse/core/services/service_locator.dart';
 import 'package:rentverse/features/review/domain/usecase/get_property_reviews_usecase.dart';
 import 'package:rentverse/core/resources/data_state.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class PropertyReviewsWidget extends StatefulWidget {
   final String propertyId;
@@ -50,7 +51,7 @@ class _PropertyReviewsWidgetState extends State<PropertyReviewsWidget> {
         final map = res.data as Map<String, dynamic>;
         final items = map['items'] as List<dynamic>? ?? [];
         final meta = map['meta'] as Map<String, dynamic>? ?? {};
-        // Ensure items are maps and safe to render
+
         final safeItems = <Map<String, dynamic>>[];
         for (final it in items) {
           if (it is Map<String, dynamic>) {
@@ -66,7 +67,7 @@ class _PropertyReviewsWidgetState extends State<PropertyReviewsWidget> {
         });
       }
     } catch (e) {
-      // ignore
+
     } finally {
       setState(() => _loading = false);
     }
@@ -74,7 +75,7 @@ class _PropertyReviewsWidgetState extends State<PropertyReviewsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Filter only tenant reviews (role == TENANT)
+
     final tenantItems = _items.where((it) {
       final role = (it['role'] as String?) ?? '';
       return role.toUpperCase() == 'TENANT';
@@ -148,7 +149,7 @@ class _PropertyReviewsWidgetState extends State<PropertyReviewsWidget> {
         CircleAvatar(
           radius: 20,
           backgroundImage: avatar != null ? NetworkImage(avatar) : null,
-          child: avatar == null ? const Icon(Icons.person) : null,
+          child: avatar == null ? Icon(LucideIcons.user) : null,
         ),
         const SizedBox(width: 8),
         Expanded(

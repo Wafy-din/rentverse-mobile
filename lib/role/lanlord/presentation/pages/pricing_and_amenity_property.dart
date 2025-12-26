@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rentverse/role/lanlord/presentation/cubit/add_property_cubit.dart';
 import 'package:rentverse/role/lanlord/presentation/cubit/add_property_state.dart';
 import 'package:rentverse/common/colors/custom_color.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class PricingAndAmenityPropertyPage extends StatefulWidget {
   const PricingAndAmenityPropertyPage({super.key});
@@ -37,7 +38,6 @@ class _PricingAndAmenityPropertyPageState
   ];
 
 
-
   @override
   void initState() {
     super.initState();
@@ -63,7 +63,7 @@ class _PricingAndAmenityPropertyPageState
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(LucideIcons.arrowLeft, color: Colors.black),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: const Text(
@@ -361,7 +361,7 @@ class _PricingAndAmenityPropertyPageState
       _views = List<String>.from(state.views);
       _billingPeriodIds = List<int>.from(state.billingPeriodIds);
       if (_billingPeriodIds.isEmpty) _billingPeriodIds.add(1);
-      // listingTypeId reset logic kept but hidden from UI
+
       _listingTypeId = state.listingTypeId;
       _priceController.text = state.price;
     });
@@ -456,7 +456,7 @@ class _TagEditorState extends State<_TagEditor> {
                     const SizedBox(width: 6),
                     GestureDetector(
                       onTap: () => _remove(e),
-                      child: const Icon(Icons.close,
+                      child: Icon(LucideIcons.x,
                           size: 16, color: appSecondaryColor),
                     ),
                   ],
@@ -507,7 +507,7 @@ class _TagEditorState extends State<_TagEditor> {
                 child: InkWell(
                   onTap: _addFromInput,
                   borderRadius: BorderRadius.circular(12),
-                  child: const Icon(Icons.add, color: Colors.white),
+                  child: Icon(LucideIcons.plus, color: Colors.white),
                 ),
               ),
             ),

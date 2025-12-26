@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentverse/role/lanlord/widget/my_property/property_components.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 class RentedProperty extends StatelessWidget {
   const RentedProperty({super.key, required this.items});
 
@@ -12,19 +13,13 @@ class RentedProperty extends StatelessWidget {
       children: [
         const Text(
           'Rented',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-        ),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
         const SizedBox(height: 12),
         Column(
           children: [
             for (final item in items) ...[
               _RentedCard(item: item),
-              if (item != items.last) const SizedBox(height: 12),
-            ],
-          ],
-        ),
-      ],
-    );
+              if (item != items.last) const SizedBox(height: 12)]])]);
   }
 }
 
@@ -38,15 +33,7 @@ class _RentedCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x11000000),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
+        borderRadius: BorderRadius.circular(14)),
       padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,23 +48,18 @@ class _RentedCard extends StatelessWidget {
                       (item.renterAvatarUrl == null ||
                           item.renterAvatarUrl!.isEmpty)
                       ? Icon(
-                          Icons.person,
+                          LucideIcons.user,
                           color: Colors.grey.shade500,
-                          size: 20,
-                        )
+                          size: 20)
                       : Image.network(
                           item.renterAvatarUrl!,
                           width: 32,
                           height: 32,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) => Icon(
-                            Icons.person,
+                            LucideIcons.user,
                             color: Colors.grey.shade500,
-                            size: 20,
-                          ),
-                        ),
-                ),
-              ),
+                            size: 20)))),
               const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,21 +69,13 @@ class _RentedCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 11,
                       color: Colors.grey.shade500,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                      fontWeight: FontWeight.w600)),
                   Text(
                     item.renterName,
                     style: const TextStyle(
                       fontSize: 13,
                       color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                      fontWeight: FontWeight.w600))])]),
           const SizedBox(height: 12),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,8 +84,7 @@ class _RentedCard extends StatelessWidget {
                 imageUrl: item.imageUrl,
                 title: item.title,
                 width: 120,
-                height: 90,
-              ),
+                height: 90),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -124,51 +97,33 @@ class _RentedCard extends StatelessWidget {
                             item.title,
                             style: const TextStyle(
                               fontWeight: FontWeight.w700,
-                              fontSize: 15,
-                            ),
+                              fontSize: 15),
                             maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
+                            overflow: TextOverflow.ellipsis)),
                         const SizedBox(width: 8),
                         Container(
                           width: 12,
                           height: 12,
                           decoration: BoxDecoration(
                             color: item.statusColor,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ],
-                    ),
+                            shape: BoxShape.circle))]),
                     const SizedBox(height: 6),
                     _InfoRow(
-                      icon: Icons.location_on,
+                      icon: LucideIcons.mapPin,
                       iconColor: const Color(0xFF9E9E9E),
-                      text: item.city,
-                    ),
+                      text: item.city),
                     const SizedBox(height: 6),
                     _InfoRow(
-                      icon: Icons.calendar_month,
+                      icon: LucideIcons.calendar,
                       iconColor: const Color(0xFF00BFA6),
                       text: '${item.startDate} - ${item.endDate}',
-                      bold: true,
-                    ),
+                      bold: true),
                     const SizedBox(height: 6),
                     _InfoRow(
-                      icon: Icons.access_time,
+                      icon: LucideIcons.clock,
                       iconColor: const Color(0xFF00BFA6),
                       text: item.duration,
-                      bold: true,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+                      bold: true)]))])]));
   }
 }
 
@@ -198,12 +153,7 @@ class _InfoRow extends StatelessWidget {
             style: TextStyle(
               fontSize: 13,
               color: Colors.black,
-              fontWeight: bold ? FontWeight.w700 : FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
-    );
+              fontWeight: bold ? FontWeight.w700 : FontWeight.w500)))]);
   }
 }
 
