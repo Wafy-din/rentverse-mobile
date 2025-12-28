@@ -84,7 +84,7 @@ class _LandlordDashboardView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Failed to load dashboard: ${state.errorMessage ?? ''}'),
+            Text(' ${state.errorMessage ?? ''}'),
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () => context.read<LandlordDashboardCubit>().load(),
@@ -101,7 +101,6 @@ class _LandlordDashboardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           _DashboardWalletCard(totalIncome: overview?.totalIncome),
           const SizedBox(height: 16),
           StatsWidget(
@@ -123,11 +122,9 @@ class _LandlordDashboardView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-
           YourTrustIndex(score: (overview?.trust.score ?? 0).toDouble()),
           const SizedBox(height: 16),
           const SizedBox(height: 16),
-
           BlocBuilder<LandlordPropertyCubit, LandlordPropertyState>(
             builder: (context, propsState) {
               if (propsState.status == LandlordPropertyStatus.loading) {
@@ -160,7 +157,6 @@ class _LandlordDashboardView extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-
           BlocBuilder<LandlordPropertyCubit, LandlordPropertyState>(
             builder: (context, propsState) {
               if (propsState.status == LandlordPropertyStatus.loading) {

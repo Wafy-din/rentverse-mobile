@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:rentverse/core/utils/error_utils.dart';
 import 'package:rentverse/features/property/domain/entity/create_property_params.dart';
 import 'package:rentverse/features/property/domain/usecase/create_property_usecase.dart';
 
@@ -6,10 +8,9 @@ import 'add_property_state.dart';
 
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit(this._createPropertyUseCase)
-    : super(const AddPropertyState());
+      : super(const AddPropertyState());
 
   final CreatePropertyUseCase _createPropertyUseCase;
-
 
   static const int _sizeAttributeId = 1;
   static const int _bedroomAttributeId = 2;
@@ -150,8 +151,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       await _createPropertyUseCase(params);
       emit(state.copyWith(status: AddPropertyStatus.success, error: null));
     } catch (e) {
+      final msg = e is DioException ? resolveApiErrorMessage(e) : e.toString();
       emit(
-        state.copyWith(status: AddPropertyStatus.failure, error: e.toString()),
+        state.copyWith(status: AddPropertyStatus.failure, error: msg),
       );
     }
   }

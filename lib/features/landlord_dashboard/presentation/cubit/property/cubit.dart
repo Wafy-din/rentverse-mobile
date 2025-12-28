@@ -1,11 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:rentverse/core/utils/error_utils.dart';
 import 'package:rentverse/features/property/domain/usecase/get_landlord_properties_usecase.dart';
 
 import 'state.dart';
 
 class LandlordPropertyCubit extends Cubit<LandlordPropertyState> {
   LandlordPropertyCubit(this._getLandlordPropertiesUseCase)
-    : super(const LandlordPropertyState());
+      : super(const LandlordPropertyState());
 
   final GetLandlordPropertiesUseCase _getLandlordPropertiesUseCase;
 
@@ -24,10 +26,11 @@ class LandlordPropertyCubit extends Cubit<LandlordPropertyState> {
         ),
       );
     } catch (e) {
+      final msg = e is DioException ? resolveApiErrorMessage(e) : e.toString();
       emit(
         state.copyWith(
           status: LandlordPropertyStatus.failure,
-          error: e.toString(),
+          error: msg,
         ),
       );
     }

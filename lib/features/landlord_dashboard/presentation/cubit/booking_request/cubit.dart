@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:dio/dio.dart';
+import 'package:rentverse/core/utils/error_utils.dart';
 import 'package:rentverse/features/bookings/domain/usecase/get_bookings_usecase.dart';
 import 'package:rentverse/features/bookings/domain/usecase/confirm_booking_usecase.dart';
 import 'package:rentverse/features/bookings/domain/usecase/reject_booking_usecase.dart';
@@ -37,15 +39,12 @@ class LandlordBookingRequestCubit extends Cubit<LandlordBookingRequestState> {
                 item.payment.status == 'PENDING',
           )
           .toList();
-      final paidPayments = res.items
-          .where((item) => item.payment.status == 'PAID')
-          .toList();
-      final confirmed = res.items
-          .where((item) => item.status == 'CONFIRMED')
-          .toList();
-      final rejected = res.items
-          .where((item) => item.status == 'REJECTED')
-          .toList();
+      final paidPayments =
+          res.items.where((item) => item.payment.status == 'PAID').toList();
+      final confirmed =
+          res.items.where((item) => item.status == 'CONFIRMED').toList();
+      final rejected =
+          res.items.where((item) => item.status == 'REJECTED').toList();
 
       emit(
         state.copyWith(
@@ -59,10 +58,11 @@ class LandlordBookingRequestCubit extends Cubit<LandlordBookingRequestState> {
       );
     } catch (e) {
       Logger().e('Load booking requests failed', error: e);
+      final msg = e is DioException ? resolveApiErrorMessage(e) : e.toString();
       emit(
         state.copyWith(
           status: LandlordBookingRequestStatus.failure,
-          error: e.toString(),
+          error: msg,
         ),
       );
     }
@@ -81,11 +81,12 @@ class LandlordBookingRequestCubit extends Cubit<LandlordBookingRequestState> {
       await load();
     } catch (e) {
       Logger().e('Confirm booking failed', error: e);
+      final msg = e is DioException ? resolveApiErrorMessage(e) : e.toString();
       emit(
         state.copyWith(
           isActionLoading: false,
           actionBookingId: null,
-          error: e.toString(),
+          error: msg,
         ),
       );
     }
@@ -105,11 +106,12 @@ class LandlordBookingRequestCubit extends Cubit<LandlordBookingRequestState> {
       await load();
     } catch (e) {
       Logger().e('Reject booking failed', error: e);
+      final msg = e is DioException ? resolveApiErrorMessage(e) : e.toString();
       emit(
         state.copyWith(
           isActionLoading: false,
           actionBookingId: null,
-          error: e.toString(),
+          error: msg,
         ),
       );
       return;
