@@ -12,6 +12,7 @@ import 'package:rentverse/features/wallet/presentation/pages/my_wallet.dart';
 import 'package:rentverse/features/disputes/presentation/pages/my_disputes_page.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:rentverse/core/utils/pop_up_unauthorized.dart';
+import 'package:rentverse/core/utils/image_utils.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -327,8 +328,9 @@ class _ProfileHeader extends StatelessWidget {
               backgroundColor: Colors.white,
               child: CircleAvatar(
                   radius: 44,
-                  backgroundImage:
-                      avatarUrl != null ? NetworkImage(avatarUrl!) : null,
+                  backgroundImage: avatarUrl != null
+                      ? buildNetworkImageProvider(avatarUrl!)
+                      : null,
                   child: avatarUrl == null
                       ? Text(name.isNotEmpty ? name[0].toUpperCase() : '?',
                           style: const TextStyle(

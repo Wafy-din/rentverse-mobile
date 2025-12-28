@@ -11,6 +11,7 @@ import 'package:rentverse/features/review/domain/usecase/submit_review_usecase.d
 import 'package:rentverse/core/resources/data_state.dart';
 import 'package:rentverse/core/utils/error_utils.dart';
 import 'package:rentverse/features/tenant_home/presentation/pages/rent/midtrans_payment_page.dart';
+import 'package:rentverse/core/utils/image_utils.dart';
 import 'package:rentverse/features/tenant_home/presentation/pages/rent/detail_active_rent.dart';
 import 'package:rentverse/features/tenant_home/presentation/cubit/rent/cubit.dart';
 import 'package:rentverse/features/tenant_home/presentation/cubit/rent/state.dart';
@@ -363,7 +364,7 @@ class _BookingListItemCard extends StatelessWidget {
                                 child: SizedBox(
                                     width: 100,
                                     height: 90,
-                                    child: Image.network(imageUrl,
+                                    child: buildNetworkImage(imageUrl,
                                         fit: BoxFit.cover))),
                             const SizedBox(width: 12),
                             Flexible(
@@ -394,36 +395,31 @@ class _BookingListItemCard extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   Align(
                                       alignment: Alignment.centerLeft,
-                                      child: DecoratedBox(
-                                          decoration: BoxDecoration(
-                                              gradient: const LinearGradient(
-                                                  colors: [
-                                                    Color(0xFF1CD8D2),
-                                                    Color(0xFF0097F6)
-                                                  ],
-                                                  begin: Alignment.centerLeft,
-                                                  end: Alignment.centerRight),
-                                              borderRadius:
-                                                  BorderRadius.circular(24)),
-                                          child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  shadowColor:
-                                                      Colors.transparent,
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 20,
-                                                      vertical: 10),
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24))),
-                                              onPressed: (isPendingTab &&
-                                                      status.toUpperCase() ==
-                                                          'PENDING_PAYMENT')
-                                                  ? null
-                                                  : onTap,
-                                              child: Text((isPendingTab && status.toUpperCase() == 'PENDING_PAYMENT') ? 'Waiting For Accept' : buttonLabel, style: const TextStyle(color: Colors.white)))))
+                                      child: (isPendingTab && status.toUpperCase() == 'PENDING_PAYMENT')
+                                          ? Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 20, vertical: 10),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24)),
+                                              child: const Text('Waiting For Accept',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w600)))
+                                          : DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                  gradient: const LinearGradient(
+                                                      colors: [
+                                                        Color(0xFF1CD8D2),
+                                                        Color(0xFF0097F6)
+                                                      ],
+                                                      begin: Alignment.centerLeft,
+                                                      end: Alignment.centerRight),
+                                                  borderRadius: BorderRadius.circular(24)),
+                                              child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, shadowColor: Colors.transparent, padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24))), onPressed: onTap, child: Text(buttonLabel, style: const TextStyle(color: Colors.white)))))
                                 ]))
                           ])
                     ]))));
